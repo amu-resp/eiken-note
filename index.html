@@ -1,0 +1,2187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>るいの英検学習ノート｜2級→準1級</title>
+<style>
+  :root {
+    --bg: #f4f6fb;
+    --card: #ffffff;
+    --ink: #1e2433;
+    --sub: #6b7280;
+    --line: #e3e7f0;
+    --accent: #4355c8;
+    --accent-soft: #eceffc;
+    --teal: #0e9488;
+    --teal-soft: #e2f5f3;
+    --red: #d64550;
+    --red-soft: #fdeaec;
+    --amber: #b45309;
+    --amber-soft: #fdf3e3;
+    --radius: 12px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.7;
+    padding-bottom: 60px;
+  }
+  header {
+    background: linear-gradient(135deg, #3b4cc0 0%, #5b6ee0 60%, #7a8cf0 100%);
+    color: #fff;
+    padding: 22px 20px 16px;
+  }
+  .header-inner { max-width: 960px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 16px; }
+  header h1 { font-size: 1.35rem; letter-spacing: .02em; }
+  header .goal { font-size: .82rem; background: rgba(255,255,255,.18); padding: 3px 12px; border-radius: 999px; }
+  header .stats { margin-left: auto; font-size: .8rem; opacity: .95; display: flex; gap: 14px; }
+  nav {
+    background: var(--card);
+    border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; z-index: 20;
+    overflow-x: auto;
+  }
+  .nav-inner { max-width: 960px; margin: 0 auto; display: flex; }
+  nav button {
+    flex: 1; min-width: 96px;
+    background: none; border: none; cursor: pointer;
+    padding: 12px 8px 10px;
+    font-size: .88rem; font-weight: 600; color: var(--sub);
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    font-family: inherit;
+  }
+  nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
+  nav button .badge {
+    display: inline-block; min-width: 20px; padding: 0 6px; margin-left: 4px;
+    background: var(--red); color: #fff; border-radius: 999px;
+    font-size: .72rem; line-height: 1.5;
+  }
+  main { max-width: 960px; margin: 0 auto; padding: 20px 16px; }
+  section.tab { display: none; }
+  section.tab.active { display: block; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: 16px;
+  }
+  .card h2 { font-size: 1.05rem; margin-bottom: 10px; color: var(--accent); }
+  .card h3 { font-size: .95rem; margin: 12px 0 6px; }
+  .hint { font-size: .8rem; color: var(--sub); margin-bottom: 10px; }
+  label { display: block; font-size: .82rem; font-weight: 600; margin: 10px 0 4px; color: #374151; }
+  input[type="text"], input[type="date"], textarea, select {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid #cdd4e3;
+    border-radius: 8px;
+    font-size: .95rem;
+    font-family: inherit;
+    background: #fff;
+    color: var(--ink);
+  }
+  textarea { resize: vertical; min-height: 70px; }
+  input:focus, textarea:focus, select:focus { outline: 2px solid var(--accent-soft); border-color: var(--accent); }
+  .btn {
+    display: inline-block;
+    background: var(--accent); color: #fff;
+    border: none; border-radius: 8px;
+    padding: 9px 18px;
+    font-size: .9rem; font-weight: 600;
+    cursor: pointer; font-family: inherit;
+  }
+  .btn:hover { opacity: .9; }
+  .btn.secondary { background: var(--accent-soft); color: var(--accent); }
+  .btn.ghost { background: none; border: 1px solid #cdd4e3; color: var(--sub); }
+  .btn.small { padding: 4px 12px; font-size: .8rem; }
+  .btn.danger { background: var(--red-soft); color: var(--red); }
+  .btn.teal { background: var(--teal); }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .row > * { flex: 1; min-width: 140px; }
+  .row > .no-grow { flex: 0 0 auto; min-width: 0; }
+  .tag {
+    display: inline-block; font-size: .72rem; font-weight: 600;
+    padding: 2px 10px; border-radius: 999px; margin-right: 6px;
+  }
+  .tag.mistake { background: var(--red-soft); color: var(--red); }
+  .tag.favorite { background: var(--amber-soft); color: var(--amber); }
+  .tag.writing { background: var(--accent-soft); color: var(--accent); }
+  .tag.grammar { background: var(--teal-soft); color: var(--teal); }
+  .tag.level { background: #eef1f6; color: var(--sub); }
+  .item {
+    border: 1px solid var(--line); border-radius: 10px;
+    padding: 12px 14px; margin-bottom: 10px;
+    background: #fff;
+  }
+  .item .en { font-size: 1.02rem; font-weight: 600; }
+  .item .ja { font-size: .88rem; color: var(--sub); margin-top: 2px; }
+  .item .memo { font-size: .82rem; color: #4b5563; background: #f8f9fc; border-radius: 6px; padding: 6px 10px; margin-top: 6px; white-space: pre-wrap; }
+  .item .meta { font-size: .72rem; color: #9ca3af; margin-top: 6px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .item .meta .actions { margin-left: auto; display: flex; gap: 6px; }
+  .empty { text-align: center; color: var(--sub); font-size: .88rem; padding: 30px 10px; }
+  details.pattern, details.grammar-entry {
+    border: 1px solid var(--line); border-radius: 10px;
+    margin-bottom: 10px; background: #fff; overflow: hidden;
+  }
+  details.pattern summary, details.grammar-entry summary {
+    cursor: pointer; padding: 12px 14px; font-weight: 600; font-size: .95rem;
+    list-style: none; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details.pattern summary::before, details.grammar-entry summary::before {
+    content: "▸"; color: var(--accent); flex: 0 0 auto; transition: transform .15s;
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  .pattern-body, .grammar-body { padding: 0 16px 14px; border-top: 1px dashed var(--line); }
+  .structure {
+    background: var(--accent-soft); color: var(--accent);
+    font-weight: 700; padding: 8px 12px; border-radius: 8px;
+    margin: 10px 0; font-size: .95rem;
+  }
+  .example { padding: 7px 0; border-bottom: 1px dotted var(--line); }
+  .example:last-child { border-bottom: none; }
+  .example .en { font-size: .95rem; }
+  .example .ja { font-size: .8rem; color: var(--sub); }
+  .caution { background: var(--red-soft); border-radius: 8px; padding: 8px 12px; font-size: .85rem; margin-top: 8px; }
+  .caution::before { content: "⚠ よくある間違い："; font-weight: 700; color: var(--red); }
+  .tip { background: var(--teal-soft); border-radius: 8px; padding: 8px 12px; font-size: .85rem; margin-top: 8px; }
+  .tip::before { content: "💡 "; }
+  .my-sentences { margin-top: 10px; background: #f8f9fc; border-radius: 8px; padding: 10px 12px; }
+  .my-sentences h4 { font-size: .8rem; color: var(--sub); margin-bottom: 6px; }
+  .my-sentence { font-size: .9rem; padding: 4px 0; display: flex; gap: 8px; align-items: baseline; }
+  .my-sentence .date { font-size: .7rem; color: #9ca3af; flex: 0 0 auto; }
+  .my-sentence .del { color: var(--red); cursor: pointer; font-size: .75rem; margin-left: auto; flex: 0 0 auto; }
+  /* flashcard */
+  .flashcard {
+    background: #fff; border: 2px solid var(--accent-soft);
+    border-radius: 16px; padding: 40px 24px; text-align: center;
+    min-height: 200px; display: flex; flex-direction: column; justify-content: center; gap: 12px;
+    margin-bottom: 14px;
+  }
+  .flashcard .prompt-label { font-size: .75rem; color: var(--sub); letter-spacing: .1em; }
+  .flashcard .front-text { font-size: 1.3rem; font-weight: 700; }
+  .flashcard .answer { font-size: 1.15rem; color: var(--teal); font-weight: 700; }
+  .flashcard .memo { font-size: .85rem; color: var(--sub); white-space: pre-wrap; }
+  .review-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .review-buttons .btn { flex: 0 1 160px; padding: 12px; }
+  .progress-bar { height: 6px; background: var(--line); border-radius: 3px; margin-bottom: 14px; overflow: hidden; }
+  .progress-bar > div { height: 100%; background: var(--accent); border-radius: 3px; transition: width .2s; }
+  .summary-day { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; background: #fff; }
+  .summary-day .date { font-weight: 700; color: var(--accent); font-size: .9rem; }
+  .summary-day .text { white-space: pre-wrap; font-size: .92rem; margin-top: 4px; }
+  .summary-day .added { font-size: .78rem; color: var(--sub); margin-top: 6px; }
+  .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+  .chip {
+    background: #fff; border: 1px solid #cdd4e3; border-radius: 999px;
+    padding: 4px 14px; font-size: .8rem; cursor: pointer; font-family: inherit; color: var(--sub);
+  }
+  .chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .toolbar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; align-items: center; }
+  .toolbar .spacer { flex: 1; }
+  .toast {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    background: var(--ink); color: #fff; padding: 10px 22px; border-radius: 999px;
+    font-size: .85rem; opacity: 0; pointer-events: none; transition: opacity .25s; z-index: 99;
+  }
+  .toast.show { opacity: .95; }
+  .qa-item { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; background: #fff; }
+  .qa-item .q { font-weight: 600; }
+  .qa-item .a { margin-top: 6px; font-size: .9rem; background: var(--teal-soft); border-radius: 8px; padding: 8px 12px; white-space: pre-wrap; }
+  .qa-item .a.empty-a { background: #f3f4f6; color: var(--sub); font-style: italic; }
+  .section-note { font-size: .82rem; color: var(--sub); background: #fff; border: 1px dashed #cdd4e3; border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; }
+  .xp-bar { height: 10px; background: var(--line); border-radius: 5px; overflow: hidden; }
+  .xp-bar > div { height: 100%; background: linear-gradient(90deg, #f6b73c, #f08c2e); border-radius: 5px; transition: width .3s; }
+  .badge-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; }
+  .badge-card { text-align: center; border: 1px solid var(--line); border-radius: 10px; padding: 12px 6px; background: #fff; }
+  .badge-card.locked { opacity: .4; filter: grayscale(1); }
+  .badge-card .emoji { font-size: 1.9rem; }
+  .badge-card .name { font-size: .75rem; font-weight: 700; margin-top: 2px; }
+  .badge-card .desc { font-size: .65rem; color: var(--sub); }
+  .mission { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 10px; margin-bottom: 8px; background: #fff; font-size: .92rem; }
+  .mission.done { background: var(--teal-soft); border-color: var(--teal); }
+  .mission .check { font-size: 1.15rem; }
+  .confetti-piece {
+    position: fixed; top: -20px; width: 10px; height: 14px; z-index: 200;
+    border-radius: 2px; pointer-events: none;
+    animation: confetti-fall linear forwards;
+  }
+  @keyframes confetti-fall {
+    to { transform: translateY(105vh) rotate(720deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .confetti-piece { display: none; }
+  }
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(20, 25, 45, .5);
+    z-index: 100; display: none; align-items: center; justify-content: center; padding: 16px;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: #fff; border-radius: 14px; max-width: 680px; width: 100%;
+    padding: 20px; max-height: 88vh; display: flex; flex-direction: column; gap: 10px;
+  }
+  .modal h3 { color: var(--accent); font-size: 1.05rem; margin: 0; }
+  .modal .steps { font-size: .85rem; background: var(--accent-soft); border-radius: 8px; padding: 8px 12px; }
+  .modal textarea { flex: 1; min-height: 220px; font-size: .85rem; line-height: 1.5; }
+  .modal .status { font-size: .88rem; font-weight: 700; color: var(--teal); min-height: 1.4em; }
+  @media (max-width: 600px) {
+    .flashcard { padding: 28px 16px; }
+    header .stats { width: 100%; margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <h1>📘 るいの英検学習ノート</h1>
+    <span class="goal">🎯 2級合格 → 準1級へ</span>
+    <div class="stats">
+      <span id="stat-level">Lv.1</span>
+      <span id="stat-expressions">表現 0</span>
+      <span id="stat-streak">連続 0日</span>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <div class="nav-inner">
+    <button data-tab="stock" class="active">📝 表現ストック</button>
+    <button data-tab="writing">✍️ ライティング</button>
+    <button data-tab="topics">🗣 話題の型</button>
+    <button data-tab="pattern">🔄 パターン練習</button>
+    <button data-tab="grammar">❓ 文法Q&A</button>
+    <button data-tab="review">🃏 復習<span class="badge" id="due-badge" style="display:none">0</span></button>
+    <button data-tab="game">🏆 がんばり</button>
+    <button data-tab="summary">📅 今日のまとめ</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ============ 表現ストック ============ -->
+<section class="tab active" id="tab-stock">
+  <div class="card">
+    <h2>表現を追加する</h2>
+    <p class="hint">間違えた表現・ライティングで使いたい表現をどんどん貯めましょう。貯めた表現は「復習」タブに自動で出題されます。</p>
+    <label>英語表現 *</label>
+    <input type="text" id="new-en" placeholder="例: It is important for students to read books every day.">
+    <label>意味・和訳　<button class="btn small secondary" onclick="autoTranslate()" style="margin-left:6px">🔍 意味を自動入力</button></label>
+    <input type="text" id="new-ja" placeholder="例: 学生にとって毎日本を読むことは大切だ。">
+    <div class="row">
+      <div>
+        <label>分類</label>
+        <select id="new-category">
+          <option value="mistake">❌ 間違えた表現</option>
+          <option value="favorite">⭐ 頻用したい表現</option>
+          <option value="writing">✍️ ライティング定型</option>
+          <option value="grammar">📖 文法事項</option>
+        </select>
+      </div>
+      <div>
+        <label>レベル</label>
+        <select id="new-level">
+          <option value="2級">2級</option>
+          <option value="準1級">準1級</option>
+        </select>
+      </div>
+    </div>
+    <label>メモ（間違えた理由・使い方のポイントなど）</label>
+    <textarea id="new-memo" placeholder="例: for + 人 + to do の語順を間違えた。to が抜けやすいので注意。"></textarea>
+    <div style="margin-top:12px">
+      <button class="btn" onclick="addExpression()">＋ ストックに追加</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>ストック一覧</h2>
+    <div class="filter-bar" id="stock-filters">
+      <button class="chip active" data-filter="all">すべて</button>
+      <button class="chip" data-filter="mistake">❌ 間違えた</button>
+      <button class="chip" data-filter="favorite">⭐ 頻用</button>
+      <button class="chip" data-filter="writing">✍️ 定型</button>
+      <button class="chip" data-filter="grammar">📖 文法</button>
+    </div>
+    <input type="text" id="stock-search" placeholder="🔍 検索（英語・日本語・メモ）" oninput="renderStock()" style="margin-bottom:12px">
+    <div id="stock-list"></div>
+  </div>
+</section>
+
+<!-- ============ ライティング ============ -->
+<section class="tab" id="tab-writing">
+  <div class="card">
+    <h2>ライティング練習を記録する</h2>
+    <p class="hint">問題文と自分の英作文を貼り付けて保存。「保存して採点プロンプトをコピー」を押すと、英検の採点基準（内容・構成・語彙・文法 各4点）で採点を頼む文章がコピーされるので、Claude に貼り付けて採点してもらいましょう。返ってきた結果は下の一覧に貼り付けて蓄積できます。</p>
+    <div class="row">
+      <div>
+        <label>レベル</label>
+        <select id="essay-level">
+          <option value="2級">2級</option>
+          <option value="準1級">準1級</option>
+        </select>
+      </div>
+      <div>
+        <label>種類</label>
+        <select id="essay-type">
+          <option value="意見論述">意見論述（エッセイ）</option>
+          <option value="要約">要約</option>
+          <option value="Eメール">Eメール</option>
+          <option value="その他">その他</option>
+        </select>
+      </div>
+    </div>
+    <label>問題文（TOPIC・指示文・本文をそのまま貼り付け）</label>
+    <textarea id="essay-question" rows="4" placeholder="例: TOPIC: Do you think it is a good idea for people to work from home?
+POINTS: ●Health ●Technology ●Communication"></textarea>
+    <label>自分の英作文</label>
+    <textarea id="essay-answer" rows="7" placeholder="自分で書いた英文をここに貼り付け"></textarea>
+    <div style="margin-top:12px" class="row">
+      <button class="btn teal no-grow" onclick="addEssay(true)">💾 保存して採点プロンプトをコピー</button>
+      <button class="btn secondary no-grow" onclick="addEssay(false)">💾 保存のみ</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>弱点分析</h2>
+    <div id="essay-stats"></div>
+    <p class="hint">蓄積した解答と採点結果（直近10回分）をまとめてAIに渡し、繰り返しているミスの傾向と改善策を分析してもらえます。返ってきた分析はここに保存して、次の練習の指針にしましょう。</p>
+    <button class="btn secondary" onclick="copyAnalysisPrompt()">📋 弱点分析プロンプトをコピー</button>
+    <label>分析結果</label>
+    <textarea id="analysis-text" rows="4" placeholder="AIから返ってきた弱点分析をここに貼り付けて保存"></textarea>
+    <div style="margin-top:8px"><button class="btn small" onclick="saveAnalysis()">💾 分析を保存</button></div>
+    <div id="analysis-list" style="margin-top:14px"></div>
+  </div>
+
+  <div class="card">
+    <h2>解いた問題の蓄積</h2>
+    <p class="hint">各問題を開くと、採点結果の貼り付け・点数の記録ができます。点数を入れると上の弱点分析に自動集計されます。</p>
+    <div id="essay-list"></div>
+  </div>
+</section>
+
+<!-- ============ 話題の型 ============ -->
+<section class="tab" id="tab-topics">
+  <div class="section-note">
+    スピーキングもライティングも、<strong>話題ごとに「自分の回答の型」を持つ</strong>のが最強の対策です。よく出るテーマ（環境・教育・技術・健康など）について型を作って蓄積し、繰り返し音読して体に入れましょう。
+  </div>
+  <div class="card">
+    <h2>回答の型を作る</h2>
+    <p class="hint">① テーマを決める → ② 言いたいことを箇条書きで書く（日本語でOK）→ ③「保存してプロンプトをコピー」を押してClaudeに貼ると、1分間で話せる英文（回答の型）を作ってくれます。返ってきた英文は下の一覧に貼り付けて蓄積しましょう。</p>
+    <div class="row">
+      <div>
+        <label>レベル</label>
+        <select id="topic-level">
+          <option value="2級">2級</option>
+          <option value="準1級">準1級</option>
+        </select>
+      </div>
+      <div>
+        <label>テーマ</label>
+        <input type="text" id="topic-theme" placeholder="例: 学生はスマートフォンを学校に持って行くべきか">
+      </div>
+    </div>
+    <label>言いたいこと（箇条書き・日本語でOK）</label>
+    <textarea id="topic-points" rows="5" placeholder="例:
+・賛成の立場
+・緊急時に親と連絡がとれる
+・調べ学習にも使える
+・ただし授業中は使わないルールが必要"></textarea>
+    <div style="margin-top:12px" class="row">
+      <button class="btn teal no-grow" onclick="addTopic(true)">💾 保存してプロンプトをコピー</button>
+      <button class="btn secondary no-grow" onclick="addTopic(false)">💾 保存のみ</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>蓄積した型</h2>
+    <p class="hint">各テーマを開くと、英文の貼り付け・1分音読タイマー・音読回数の記録ができます。</p>
+    <input type="text" id="topics-search" placeholder="🔍 テーマで検索" oninput="renderTopics()" style="margin-bottom:12px">
+    <div id="topics-list"></div>
+  </div>
+</section>
+
+<!-- ============ パターン練習 ============ -->
+<section class="tab" id="tab-pattern">
+  <div class="section-note">
+    パターンを1つ選んで例文を音読 → 下の欄に<strong>自分の英文</strong>を作って保存しましょう。同じ型で3文作ると定着します。作った文は各パターンの中に蓄積されます。
+  </div>
+  <div class="filter-bar" id="pattern-filters">
+    <button class="chip active" data-pfilter="all">すべて</button>
+    <button class="chip" data-pfilter="意見">意見・主張</button>
+    <button class="chip" data-pfilter="理由">理由・因果</button>
+    <button class="chip" data-pfilter="例示">例示・追加</button>
+    <button class="chip" data-pfilter="逆接">逆接・対比</button>
+    <button class="chip" data-pfilter="結論">結論</button>
+    <button class="chip" data-pfilter="要約">要約（準1級）</button>
+    <button class="chip" data-pfilter="重要構文">重要構文</button>
+  </div>
+  <div id="pattern-list"></div>
+
+  <div class="card">
+    <h2>自分のパターンを追加</h2>
+    <p class="hint">問題集で出会った「使える型」を登録できます。</p>
+    <label>パターン名</label>
+    <input type="text" id="custom-pattern-name" placeholder="例: enable A to do（Aが〜できるようにする）">
+    <label>構造</label>
+    <input type="text" id="custom-pattern-structure" placeholder="例: 主語 + enable(s) + 人 + to do">
+    <label>例文（1行に1文。「英文 ／ 和訳」の形式）</label>
+    <textarea id="custom-pattern-examples" placeholder="Smartphones enable us to get information quickly. ／ スマートフォンのおかげで素早く情報を得られる。"></textarea>
+    <div style="margin-top:12px">
+      <button class="btn" onclick="addCustomPattern()">＋ パターンを追加</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 文法Q&A ============ -->
+<section class="tab" id="tab-grammar">
+  <div class="card">
+    <h2>文法リファレンス</h2>
+    <p class="hint">英検2級・準1級で問われる文法をまとめました。キーワードで検索できます（例:「仮定法」「関係代名詞」「would」）。</p>
+    <input type="text" id="grammar-search" placeholder="🔍 文法項目・キーワードで検索" oninput="renderGrammar()">
+  </div>
+  <div id="grammar-list"></div>
+
+  <div class="card">
+    <h2>質問ノート</h2>
+    <p class="hint">リファレンスで解決しない疑問はここに記録。「AIに質問文をコピー」ボタンで質問文がコピーされるので、Claude や ChatGPT に貼り付けて聞き、返ってきた答えをここに保存すれば自分だけの文法ノートになります。</p>
+    <label>質問</label>
+    <textarea id="new-question" placeholder="例: I have been to と I have gone to の違いは？"></textarea>
+    <div style="margin-top:10px" class="row">
+      <button class="btn no-grow" onclick="addQuestion()">＋ 質問を記録</button>
+      <button class="btn secondary no-grow" onclick="copyAIPrompt()">📋 AIに質問文をコピー</button>
+    </div>
+    <div id="qa-list" style="margin-top:16px"></div>
+  </div>
+</section>
+
+<!-- ============ 復習 ============ -->
+<section class="tab" id="tab-review">
+  <div class="card">
+    <h2>フラッシュカード復習</h2>
+    <p class="hint">表現ストックから出題します。「覚えた」を押すと次の出題間隔が延び（1日→3日→7日→14日→30日）、「まだ」で翌日にリセットされます。</p>
+    <div class="row" style="margin-bottom:12px">
+      <div>
+        <label>出題方向</label>
+        <select id="review-direction">
+          <option value="ja-en">日本語 → 英語（ライティング向け）</option>
+          <option value="en-ja">英語 → 日本語</option>
+        </select>
+      </div>
+      <div>
+        <label>出題範囲</label>
+        <select id="review-scope">
+          <option value="due">今日復習すべきもの</option>
+          <option value="all">すべてランダム</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn teal" onclick="startReview()">▶ 復習をはじめる</button>
+  </div>
+  <div id="review-area" style="display:none">
+    <div class="progress-bar"><div id="review-progress" style="width:0%"></div></div>
+    <div class="flashcard" id="flashcard"></div>
+    <div class="review-buttons" id="review-controls"></div>
+  </div>
+  <div id="review-done" class="card" style="display:none; text-align:center">
+    <h2>🎉 おつかれさま！</h2>
+    <p id="review-result"></p>
+    <p class="hint" style="margin-top:8px">今日のまとめに一言記録しておきましょう。</p>
+    <button class="btn secondary" onclick="switchTab('summary')">📅 今日のまとめへ</button>
+  </div>
+</section>
+
+<!-- ============ がんばり ============ -->
+<section class="tab" id="tab-game">
+  <div class="card" id="game-level-card"></div>
+  <div class="card">
+    <h2>今日のミッション</h2>
+    <div id="mission-list"></div>
+  </div>
+  <div class="card">
+    <h2>この1週間のがんばり</h2>
+    <div id="week-dots"></div>
+  </div>
+  <div class="card">
+    <h2>バッジコレクション</h2>
+    <p class="hint">勉強すると自動でもらえるよ。全部あつめられるかな？</p>
+    <div class="badge-grid" id="badge-grid"></div>
+  </div>
+</section>
+
+<!-- ============ 今日のまとめ ============ -->
+<section class="tab" id="tab-summary">
+  <div class="card">
+    <h2>今日のまとめを書く</h2>
+    <p class="hint">その日にやったこと・気づき・明日やることを書いて保存。日付ごとに蓄積されるので「ノートがどこかへ行く」ことはありません。</p>
+    <label>日付</label>
+    <input type="date" id="summary-date">
+    <label>まとめ</label>
+    <textarea id="summary-text" rows="6" placeholder="例:
+・ライティング1本（テーマ: オンライン学習）
+・not only A but also B を初めて使えた
+・仮定法過去の would/could の使い分けがまだ怪しい → 明日復習"></textarea>
+    <div style="margin-top:12px">
+      <button class="btn" onclick="saveSummary()">💾 保存する</button>
+    </div>
+  </div>
+  <div class="card">
+    <h2>これまでの記録</h2>
+    <div id="summary-list"></div>
+  </div>
+  <div class="card">
+    <h2>データのバックアップ</h2>
+    <p class="hint">データはこのブラウザ内に自動保存されています。別のパソコンで使う場合や念のためのバックアップには、ファイルへの書き出しをおすすめします（週1回程度）。</p>
+    <div class="row">
+      <button class="btn secondary no-grow" onclick="exportData()">⬇ ファイルに書き出す</button>
+      <button class="btn ghost no-grow" onclick="document.getElementById('import-file').click()">⬆ ファイルから読み込む</button>
+      <input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(event)">
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div class="modal-overlay" id="prompt-modal">
+  <div class="modal">
+    <h3>📋 AIへの依頼文ができました</h3>
+    <div class="steps">① 下の文章をコピー → ② Claude のチャットに貼り付けて送信 → ③ 返ってきた英文をこのノートに貼り付けて保存</div>
+    <textarea id="modal-textarea" readonly onclick="this.select()"></textarea>
+    <div class="status" id="modal-status"></div>
+    <div class="row">
+      <button class="btn no-grow" onclick="modalCopy()">📋 コピーする</button>
+      <button class="btn ghost no-grow" onclick="closePromptModal()">閉じる</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ==================== データ管理 ==================== */
+const STORAGE_KEY = 'eiken-study-v1';
+const INTERVALS = [1, 3, 7, 14, 30]; // 日
+
+let db = {
+  expressions: [],   // {id, en, ja, category, level, memo, created, stage, nextReview}
+  patternsCustom: [],// {id, name, structure, category, level, examples:[{en,ja}]}
+  mySentences: {},   // patternId -> [{text, date}]
+  questions: [],     // {id, q, a, created}
+  summaries: {},     // 'YYYY-MM-DD' -> text
+  essays: [],        // {id, date, level, type, question, answer, feedback, scores:{c,s,v,g}|null}
+  analyses: [],      // {id, date, text}
+  topics: []         // {id, date, level, theme, points, answer, readCount}
+};
+
+function load() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) db = Object.assign(db, JSON.parse(raw));
+  } catch (e) { console.error(e); }
+}
+function save() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+  updateStats();
+}
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+function today() {
+  const d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+function esc(s) {
+  return (s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+/* ==================== タブ ==================== */
+document.querySelectorAll('nav button').forEach(b => {
+  b.addEventListener('click', () => switchTab(b.dataset.tab));
+});
+function switchTab(name) {
+  document.querySelectorAll('nav button').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
+  document.querySelectorAll('section.tab').forEach(s => s.classList.toggle('active', s.id === 'tab-' + name));
+  window.scrollTo(0, 0);
+}
+
+/* ==================== がんばり（XP・レベル・バッジ・ミッション） ==================== */
+const TITLES = ['えいごのたまご', 'えいごのひよこ', 'たんごあつめ見習い', 'フレーズハンター',
+  '音読チャレンジャー', 'ライティング見習い', 'えいさくぶん名人', 'スピーチの達人',
+  '英検チャレンジャー', '2級マスターへの道', 'じゅん1級チャレンジャー', 'えいごマスター'];
+const LEVEL_EMOJI = ['🥚', '🐣', '🐥', '🦆', '🦉', '🦅', '🚀', '🌟', '💎', '👑'];
+
+const MISSIONS = [
+  { id: 'm-expr', label: '表現を1つふやす', type: 'expr', goal: 1, unit: '個' },
+  { id: 'm-review', label: '復習カードを5枚やる', type: 'review', goal: 5, unit: '枚' },
+  { id: 'm-read', label: '音読を1回する', type: 'read', goal: 1, unit: '回' }
+];
+
+const BADGES = [
+  { id: 'first-expr', emoji: '🌱', name: 'はじめの一歩', desc: '表現を1つためた', check: () => db.expressions.length >= 1 },
+  { id: 'expr-10', emoji: '📚', name: 'たんごハンター', desc: '表現を10個ためた', check: () => db.expressions.length >= 10 },
+  { id: 'expr-50', emoji: '🏛️', name: '表現はかせ', desc: '表現を50個ためた', check: () => db.expressions.length >= 50 },
+  { id: 'review-50', emoji: '🃏', name: 'カードのたつじん', desc: '復習カードを50枚やった', check: () => g().totals.review >= 50 },
+  { id: 'review-200', emoji: '🧠', name: 'きおくマスター', desc: '復習カードを200枚やった', check: () => g().totals.review >= 200 },
+  { id: 'read-10', emoji: '🎤', name: '音読チャンピオン', desc: '音読を10回した', check: () => g().totals.read >= 10 },
+  { id: 'read-50', emoji: '📢', name: '声に出す王さま', desc: '音読を50回した', check: () => g().totals.read >= 50 },
+  { id: 'essay-1', emoji: '✏️', name: '初ライティング', desc: '英作文を1回記録した', check: () => db.essays.length >= 1 },
+  { id: 'essay-10', emoji: '🖋️', name: 'ライティング戦士', desc: '英作文を10回記録した', check: () => db.essays.length >= 10 },
+  { id: 'topic-5', emoji: '🗣️', name: 'スピーチのたね', desc: '話題の型を5個つくった', check: () => db.topics.length >= 5 },
+  { id: 'streak-3', emoji: '🔥', name: '3日れんぞく！', desc: '3日つづけて勉強した', check: () => currentStreak() >= 3 },
+  { id: 'streak-7', emoji: '🌟', name: '1週間れんぞく！', desc: '7日つづけて勉強した', check: () => currentStreak() >= 7 },
+  { id: 'streak-30', emoji: '👑', name: 'けいぞくの王さま', desc: '30日つづけて勉強した', check: () => currentStreak() >= 30 },
+  { id: 'summary-7', emoji: '📅', name: 'まとめ名人', desc: 'まとめを7日分書いた', check: () => Object.keys(db.summaries).length >= 7 },
+  { id: 'level-5', emoji: '🚀', name: 'レベル5とうたつ', desc: 'レベル5になった', check: () => levelFromXp(g().xp).lvl >= 5 },
+  { id: 'level-10', emoji: '🏆', name: 'レベル10とうたつ', desc: 'レベル10になった', check: () => levelFromXp(g().xp).lvl >= 10 }
+];
+
+function g() {
+  if (!db.game) db.game = { xp: 0, days: {}, badges: {}, totals: { review: 0, read: 0 }, today: { date: '', counts: {}, bonus: {} } };
+  if (!db.game.totals) db.game.totals = { review: 0, read: 0 };
+  if (!db.game.today) db.game.today = { date: '', counts: {}, bonus: {} };
+  if (!db.game.days) db.game.days = {};
+  if (!db.game.badges) db.game.badges = {};
+  return db.game;
+}
+
+function fmtDate(x) {
+  return x.getFullYear() + '-' + String(x.getMonth() + 1).padStart(2, '0') + '-' + String(x.getDate()).padStart(2, '0');
+}
+
+function levelFromXp(xp) {
+  let lvl = 1, need = 50, rest = xp;
+  while (rest >= need) { rest -= need; lvl++; need = 50 + (lvl - 1) * 25; }
+  return { lvl, cur: rest, need };
+}
+
+function titleFor(lvl) { return TITLES[Math.min(lvl - 1, TITLES.length - 1)]; }
+function emojiFor(lvl) { return LEVEL_EMOJI[Math.min(lvl - 1, LEVEL_EMOJI.length - 1)]; }
+
+function currentStreak() {
+  const set = new Set(Object.keys(db.summaries));
+  Object.keys(g().days).forEach(d => set.add(d));
+  let streak = 0;
+  const d = new Date();
+  if (!set.has(fmtDate(d))) d.setDate(d.getDate() - 1);
+  while (set.has(fmtDate(d))) { streak++; d.setDate(d.getDate() - 1); }
+  return streak;
+}
+
+function bump(type, n) {
+  const game = g();
+  if (game.today.date !== today()) game.today = { date: today(), counts: {}, bonus: {} };
+  game.today.counts[type] = (game.today.counts[type] || 0) + (n || 1);
+}
+
+function addXP(n) {
+  const game = g();
+  const before = levelFromXp(game.xp).lvl;
+  game.xp += n;
+  game.days[today()] = true;
+  checkMissions();
+  const after = levelFromXp(game.xp).lvl;
+  if (after > before) {
+    confettiBurst();
+    setTimeout(() => toast('🎉 レベルアップ！ Lv.' + after + '「' + titleFor(after) + '」になったよ！'), 6000);
+  }
+  checkBadges();
+  renderGame();
+}
+
+function checkMissions() {
+  const game = g();
+  const t = game.today;
+  if (t.date !== today()) return;
+  let newly = false;
+  MISSIONS.forEach(m => {
+    const c = t.counts[m.type] || 0;
+    if (c >= m.goal && !t.bonus[m.id]) {
+      t.bonus[m.id] = true;
+      game.xp += 10;
+      setTimeout(() => toast('✅ ミッション達成！「' + m.label + '」 +10XP'), 1500);
+      newly = true;
+    }
+  });
+  if (newly && MISSIONS.every(m => t.bonus[m.id])) {
+    confettiBurst();
+    setTimeout(() => toast('🎊 今日のミッション全クリア！すごい！'), 3800);
+  }
+}
+
+function checkBadges() {
+  BADGES.forEach(b => {
+    if (!g().badges[b.id] && b.check()) {
+      g().badges[b.id] = today();
+      confettiBurst();
+      setTimeout(() => toast('🏅 バッジ獲得！「' + b.name + '」'), 8200);
+    }
+  });
+}
+
+function confettiBurst() {
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const colors = ['#f6b73c', '#4355c8', '#0e9488', '#d64550', '#8b5cf6', '#f08c2e'];
+  for (let i = 0; i < 50; i++) {
+    const p = document.createElement('div');
+    p.className = 'confetti-piece';
+    p.style.left = (Math.random() * 100) + 'vw';
+    p.style.background = colors[i % colors.length];
+    p.style.animationDuration = (1.2 + Math.random() * 1.4) + 's';
+    p.style.animationDelay = (Math.random() * 0.5) + 's';
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 3500);
+  }
+}
+
+function renderGame() {
+  const card = document.getElementById('game-level-card');
+  if (!card) return;
+  const game = g();
+  const li = levelFromXp(game.xp);
+  card.innerHTML = `
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+      <div style="font-size:2.8rem">${emojiFor(li.lvl)}</div>
+      <div style="flex:1;min-width:200px">
+        <div style="font-size:.78rem;color:var(--sub)">いまのレベル</div>
+        <div style="font-size:1.25rem;font-weight:800">Lv.${li.lvl}　${titleFor(li.lvl)}</div>
+        <div class="xp-bar" style="margin-top:8px"><div style="width:${Math.round(li.cur / li.need * 100)}%"></div></div>
+        <div style="font-size:.75rem;color:var(--sub);margin-top:4px">あと ${li.need - li.cur} XP でレベルアップ！（ぜんぶで ${game.xp} XP）</div>
+      </div>
+    </div>`;
+  const t = game.today;
+  const counts = t.date === today() ? t.counts : {};
+  const bonus = t.date === today() ? t.bonus : {};
+  document.getElementById('mission-list').innerHTML = MISSIONS.map(m => {
+    const c = counts[m.type] || 0;
+    const done = bonus[m.id] || c >= m.goal;
+    return `<div class="mission ${done ? 'done' : ''}">
+      <span class="check">${done ? '✅' : '⬜'}</span>
+      <span style="flex:1">${m.label}</span>
+      <span style="font-size:.8rem;color:var(--sub)">${Math.min(c, m.goal)}/${m.goal}${m.unit}${done ? '　+10XP' : ''}</span>
+    </div>`;
+  }).join('') + '<p class="hint" style="margin-top:8px">3つ全部クリアすると合計 +30XP！ミッションは毎日リセットされるよ。</p>';
+  document.getElementById('badge-grid').innerHTML = BADGES.map(b => {
+    const got = g().badges[b.id];
+    return `<div class="badge-card ${got ? '' : 'locked'}">
+      <div class="emoji">${b.emoji}</div>
+      <div class="name">${b.name}</div>
+      <div class="desc">${b.desc}</div>
+      ${got ? `<div class="desc" style="color:var(--teal);font-weight:700">${got} ゲット</div>` : ''}
+    </div>`;
+  }).join('');
+  const set = new Set(Object.keys(db.summaries));
+  Object.keys(game.days).forEach(d => set.add(d));
+  let dots = '';
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    const on = set.has(fmtDate(d));
+    dots += `<div style="text-align:center">
+      <div style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto;background:${on ? 'var(--teal)' : '#eef1f6'};color:${on ? '#fff' : '#c3c9d6'};font-weight:700">${on ? '✓' : '・'}</div>
+      <div style="font-size:.68rem;color:var(--sub);margin-top:4px">${d.getMonth() + 1}/${d.getDate()}</div>
+    </div>`;
+  }
+  document.getElementById('week-dots').innerHTML =
+    `<div style="display:flex;gap:8px;justify-content:space-between;max-width:420px">${dots}</div>
+     <p class="hint" style="margin-top:10px">なにか1つでも勉強した日に ✓ がつくよ。連続 ${currentStreak()} 日！</p>`;
+}
+
+/* ==================== 表現ストック ==================== */
+const CATEGORY_LABEL = {
+  mistake: ['❌ 間違えた', 'mistake'],
+  favorite: ['⭐ 頻用', 'favorite'],
+  writing: ['✍️ 定型', 'writing'],
+  grammar: ['📖 文法', 'grammar']
+};
+let stockFilter = 'all';
+
+document.querySelectorAll('#stock-filters .chip').forEach(c => {
+  c.addEventListener('click', () => {
+    stockFilter = c.dataset.filter;
+    document.querySelectorAll('#stock-filters .chip').forEach(x => x.classList.toggle('active', x === c));
+    renderStock();
+  });
+});
+
+function addExpression() {
+  const en = document.getElementById('new-en').value.trim();
+  if (!en) { toast('英語表現を入力してください'); return; }
+  db.expressions.unshift({
+    id: uid(),
+    en,
+    ja: document.getElementById('new-ja').value.trim(),
+    category: document.getElementById('new-category').value,
+    level: document.getElementById('new-level').value,
+    memo: document.getElementById('new-memo').value.trim(),
+    created: today(),
+    stage: 0,
+    nextReview: today()
+  });
+  bump('expr');
+  addXP(5);
+  document.getElementById('new-en').value = '';
+  document.getElementById('new-ja').value = '';
+  document.getElementById('new-memo').value = '';
+  save();
+  renderStock();
+  toast('ストックに追加しました ✔');
+}
+
+function deleteExpression(id) {
+  if (!confirm('この表現を削除しますか？')) return;
+  db.expressions = db.expressions.filter(x => x.id !== id);
+  save();
+  renderStock();
+}
+
+async function autoTranslate() {
+  const en = document.getElementById('new-en').value.trim();
+  if (!en) { toast('先に英語表現を入力してください'); return; }
+  toast('翻訳中…');
+  try {
+    const res = await fetch('https://api.mymemory.translated.net/get?q=' + encodeURIComponent(en) + '&langpair=en|ja');
+    const data = await res.json();
+    const t = data && data.responseData && data.responseData.translatedText;
+    if (!t) throw new Error('no result');
+    document.getElementById('new-ja').value = t;
+    toast('和訳を入れました。おかしいところは直してね ✔');
+  } catch (e) {
+    toast('この画面では自動翻訳が使えません（Web版は外部接続が遮断されるため）。手で入力してください');
+  }
+}
+
+function editExpression(id) {
+  const x = db.expressions.find(e => e.id === id);
+  if (x) { x._editing = true; renderStock(); }
+}
+
+function cancelExpressionEdit(id) {
+  const x = db.expressions.find(e => e.id === id);
+  if (x) { delete x._editing; renderStock(); }
+}
+
+function saveExpressionEdit(id) {
+  const x = db.expressions.find(e => e.id === id);
+  if (!x) return;
+  const en = document.getElementById('ed-en-' + id).value.trim();
+  if (!en) { toast('英語表現は空にできません'); return; }
+  x.en = en;
+  x.ja = document.getElementById('ed-ja-' + id).value.trim();
+  x.category = document.getElementById('ed-cat-' + id).value;
+  x.level = document.getElementById('ed-lvl-' + id).value;
+  x.memo = document.getElementById('ed-memo-' + id).value.trim();
+  delete x._editing;
+  save();
+  renderStock();
+  toast('修正しました ✔');
+}
+
+function renderStock() {
+  const q = document.getElementById('stock-search').value.trim().toLowerCase();
+  const list = document.getElementById('stock-list');
+  let items = db.expressions;
+  if (stockFilter !== 'all') items = items.filter(x => x.category === stockFilter);
+  if (q) items = items.filter(x =>
+    x.en.toLowerCase().includes(q) || (x.ja||'').toLowerCase().includes(q) || (x.memo||'').toLowerCase().includes(q));
+  if (!items.length) {
+    list.innerHTML = '<div class="empty">まだ表現がありません。上のフォームから追加しましょう。</div>';
+    return;
+  }
+  list.innerHTML = items.map(x => {
+    const [label, cls] = CATEGORY_LABEL[x.category] || ['', ''];
+    if (x._editing) {
+      return `<div class="item" style="border-color:var(--accent)">
+        <label>英語表現</label>
+        <input type="text" id="ed-en-${x.id}" value="${esc(x.en)}">
+        <label>意味・和訳</label>
+        <input type="text" id="ed-ja-${x.id}" value="${esc(x.ja)}">
+        <div class="row">
+          <div>
+            <label>分類</label>
+            <select id="ed-cat-${x.id}">
+              ${Object.entries(CATEGORY_LABEL).map(([v, [l]]) => `<option value="${v}" ${x.category === v ? 'selected' : ''}>${l}</option>`).join('')}
+            </select>
+          </div>
+          <div>
+            <label>レベル</label>
+            <select id="ed-lvl-${x.id}">
+              <option value="2級" ${x.level === '2級' ? 'selected' : ''}>2級</option>
+              <option value="準1級" ${x.level === '準1級' ? 'selected' : ''}>準1級</option>
+            </select>
+          </div>
+        </div>
+        <label>メモ</label>
+        <textarea id="ed-memo-${x.id}" rows="2">${esc(x.memo)}</textarea>
+        <div style="margin-top:10px">
+          <button class="btn small" onclick="saveExpressionEdit('${x.id}')">💾 保存</button>
+          <button class="btn small ghost" onclick="cancelExpressionEdit('${x.id}')">キャンセル</button>
+        </div>
+      </div>`;
+    }
+    return `<div class="item">
+      <span class="tag ${cls}">${label}</span><span class="tag level">${esc(x.level)}</span>
+      <div class="en">${esc(x.en)}</div>
+      ${x.ja ? `<div class="ja">${esc(x.ja)}</div>` : ''}
+      ${x.memo ? `<div class="memo">${esc(x.memo)}</div>` : ''}
+      <div class="meta">
+        <span>追加: ${x.created}</span>
+        <span>次の復習: ${x.nextReview}</span>
+        <span class="actions">
+          <button class="btn small ghost" onclick="editExpression('${x.id}')">編集</button>
+          <button class="btn small danger" onclick="deleteExpression('${x.id}')">削除</button>
+        </span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ==================== パターンデータ ==================== */
+const BUILTIN_PATTERNS = [
+  {
+    id: 'p-opinion1', category: '意見', level: '2級',
+    name: 'I think (that) 〜 for two reasons.（意見の切り出し）',
+    structure: 'I think (that) + 主語 + 動詞 〜 for two reasons.',
+    tip: '英検2級ライティングの書き出しの定番。質問文の表現を借りて主張を述べ、"for two reasons" で理由が2つ来ることを予告します。',
+    examples: [
+      { en: 'I think that students should read more books for two reasons.', ja: '2つの理由から、学生はもっと本を読むべきだと思います。' },
+      { en: 'I think that working from home is a good idea for two reasons.', ja: '2つの理由から、在宅勤務は良い考えだと思います。' },
+      { en: 'I do not think that convenience stores should stay open 24 hours for two reasons.', ja: '2つの理由から、コンビニは24時間営業すべきではないと思います。' },
+      { en: 'I think that learning English is important for young people for two reasons.', ja: '2つの理由から、若者にとって英語学習は大切だと思います。' }
+    ]
+  },
+  {
+    id: 'p-opinion2', category: '意見', level: '2級',
+    name: 'It is 形容詞 for 人 to do（〜することは…だ）',
+    structure: 'It is + 形容詞 + for + 人 + to + 動詞の原形',
+    caution: '「for + 人」の位置に注意。× It is important students to read → ○ It is important for students to read',
+    examples: [
+      { en: 'It is important for children to play outside.', ja: '子どもにとって外で遊ぶことは大切です。' },
+      { en: 'It is difficult for me to get up early in the morning.', ja: '私にとって朝早く起きることは難しいです。' },
+      { en: 'It is necessary for us to protect the environment.', ja: '私たちが環境を守ることは必要です。' },
+      { en: 'It is good for your health to exercise every day.', ja: '毎日運動することは健康に良いです。' },
+      { en: 'It is convenient for people to shop online.', ja: '人々にとってオンラインで買い物をするのは便利です。' }
+    ]
+  },
+  {
+    id: 'p-opinion3', category: '意見', level: '2級',
+    name: 'should / should not（〜すべきだ）',
+    structure: '主語 + should (not) + 動詞の原形',
+    examples: [
+      { en: 'The government should spend more money on education.', ja: '政府は教育にもっとお金を使うべきです。' },
+      { en: 'People should not use their smartphones while walking.', ja: '歩きながらスマートフォンを使うべきではありません。' },
+      { en: 'Schools should teach students how to use computers.', ja: '学校は生徒にコンピューターの使い方を教えるべきです。' },
+      { en: 'Companies should allow their workers to work from home.', ja: '企業は従業員の在宅勤務を認めるべきです。' }
+    ]
+  },
+  {
+    id: 'p-reason1', category: '理由', level: '2級',
+    name: 'First, ... Second, ...（理由の列挙）',
+    structure: 'First, + 理由1の文. Second, + 理由2の文.',
+    tip: 'First / Second のあとは必ずコンマ。Firstly / Secondly でもOK。理由のあとに具体例 (For example, ...) を続けると語数が稼げて説得力も上がります。',
+    examples: [
+      { en: 'First, reading books improves our vocabulary.', ja: '第一に、読書は語彙力を高めます。' },
+      { en: 'Second, students can learn about different cultures through books.', ja: '第二に、学生は本を通じて異文化について学べます。' },
+      { en: 'First, online shopping saves a lot of time.', ja: '第一に、オンラインショッピングは多くの時間を節約します。' },
+      { en: 'Second, people can compare prices easily on the Internet.', ja: '第二に、インターネットでは価格を簡単に比較できます。' }
+    ]
+  },
+  {
+    id: 'p-reason2', category: '理由', level: '2級',
+    name: 'This is because 〜（なぜなら〜だから）',
+    structure: '主張の文. This is because + 主語 + 動詞 〜.',
+    caution: '× Because 単独で文を始めて終わらせるのは避ける（Because he is busy. だけでは不完全）。This is because 〜 なら1文として成立します。',
+    examples: [
+      { en: 'More people are moving to cities. This is because there are more jobs there.', ja: 'より多くの人が都市に移住しています。なぜならそこには仕事が多いからです。' },
+      { en: 'I prefer traveling by train. This is because I can enjoy the view.', ja: '私は電車での旅行が好きです。景色を楽しめるからです。' },
+      { en: 'Many students study abroad. This is because they want to improve their language skills.', ja: '多くの学生が留学します。語学力を高めたいからです。' }
+    ]
+  },
+  {
+    id: 'p-reason3', category: '理由', level: '2級',
+    name: 'Thanks to 〜 / Because of 〜（〜のおかげで・〜のせいで）',
+    structure: 'Thanks to + 名詞, 主語 + 動詞 〜. ／ Because of + 名詞, 〜',
+    caution: 'because of の後ろは名詞。文を続けたいときは because + 主語 + 動詞。× because of it rains → ○ because it rains / ○ because of the rain',
+    examples: [
+      { en: 'Thanks to the Internet, we can get information easily.', ja: 'インターネットのおかげで、簡単に情報を得られます。' },
+      { en: 'Because of the bad weather, the event was canceled.', ja: '悪天候のため、イベントは中止になりました。' },
+      { en: 'Thanks to technology, our lives have become more convenient.', ja: '技術のおかげで、私たちの生活はより便利になりました。' }
+    ]
+  },
+  {
+    id: 'p-reason4', category: '理由', level: '2級',
+    name: 'As a result / Therefore（その結果・したがって）',
+    structure: '原因の文. As a result, + 結果の文.',
+    examples: [
+      { en: 'Many people use smartphones every day. As a result, they spend less time reading books.', ja: '多くの人が毎日スマートフォンを使います。その結果、読書の時間が減っています。' },
+      { en: 'He practiced hard every day. As a result, he won the tournament.', ja: '彼は毎日一生懸命練習しました。その結果、大会で優勝しました。' },
+      { en: 'The price of vegetables went up. Therefore, many families are trying to grow their own.', ja: '野菜の価格が上がりました。そのため、多くの家庭が自分で育てようとしています。' }
+    ]
+  },
+  {
+    id: 'p-example1', category: '例示', level: '2級',
+    name: 'For example, 〜（例を挙げる）',
+    structure: '一般的な主張. For example, + 具体例の文.',
+    tip: '理由を書いたら必ず For example で具体化する癖をつけると、2級ライティングの「構成」点が安定します。',
+    examples: [
+      { en: 'Exercise is good for our health. For example, jogging helps us stay in shape.', ja: '運動は健康に良いです。例えば、ジョギングは体型維持に役立ちます。' },
+      { en: 'Smartphones are useful for studying. For example, we can use apps to learn English words.', ja: 'スマートフォンは勉強に役立ちます。例えば、アプリで英単語を学べます。' },
+      { en: 'Japan has many popular tourist spots. For example, Kyoto attracts millions of visitors every year.', ja: '日本には人気の観光地がたくさんあります。例えば京都には毎年何百万人もの観光客が訪れます。' }
+    ]
+  },
+  {
+    id: 'p-example2', category: '例示', level: '2級',
+    name: 'In addition / Also / Moreover（情報の追加）',
+    structure: '文1. In addition, + 文2.',
+    examples: [
+      { en: 'Riding a bicycle is good exercise. In addition, it is good for the environment.', ja: '自転車に乗ることは良い運動です。さらに、環境にも良いです。' },
+      { en: 'The restaurant serves delicious food. Moreover, the staff members are very friendly.', ja: 'そのレストランの料理はおいしいです。さらに、店員もとても親切です。' },
+      { en: 'Studying abroad helps you learn a language. Also, you can make friends from around the world.', ja: '留学は語学の習得に役立ちます。また、世界中の友達を作ることもできます。' }
+    ]
+  },
+  {
+    id: 'p-example3', category: '例示', level: '2級',
+    name: 'more and more 〜（ますます多くの〜）',
+    structure: 'More and more + 名詞(複数形) + are 〜ing / 動詞',
+    examples: [
+      { en: 'More and more people are shopping online these days.', ja: '最近、ますます多くの人がオンラインで買い物をしています。' },
+      { en: 'More and more students are studying abroad.', ja: 'ますます多くの学生が留学しています。' },
+      { en: 'More and more companies are using AI to improve their services.', ja: 'ますます多くの企業がサービス向上のためにAIを使っています。' }
+    ]
+  },
+  {
+    id: 'p-contrast1', category: '逆接', level: '2級',
+    name: 'However / On the other hand（しかし・一方で）',
+    structure: '文1. However, + 文2.',
+    caution: 'However は接続詞ではなく副詞。2文をコンマだけでつなぐのは誤り。× It is useful, however it is expensive. → ○ It is useful. However, it is expensive.',
+    examples: [
+      { en: 'Smartphones are very convenient. However, using them too much can be bad for our eyes.', ja: 'スマートフォンはとても便利です。しかし、使いすぎは目に悪いことがあります。' },
+      { en: 'Living in a big city is exciting. On the other hand, it can be stressful.', ja: '大都市での生活は刺激的です。一方で、ストレスがたまることもあります。' },
+      { en: 'Some people like to travel alone. However, others prefer to travel with friends.', ja: '一人旅が好きな人もいます。しかし、友人との旅行を好む人もいます。' }
+    ]
+  },
+  {
+    id: 'p-contrast2', category: '逆接', level: '2級',
+    name: 'Some people 〜, while others ...（〜な人もいれば…な人もいる）',
+    structure: 'Some people + 動詞 〜, while others + 動詞 ...',
+    tip: '賛否両論を示すのに便利。準1級の要約でも「対比」を1文でまとめるのに重宝します。',
+    examples: [
+      { en: 'Some people enjoy working in an office, while others prefer working at home.', ja: 'オフィスで働くのが好きな人もいれば、家で働くほうを好む人もいます。' },
+      { en: 'Some students study best in the morning, while others concentrate better at night.', ja: '朝に勉強がはかどる学生もいれば、夜のほうが集中できる学生もいます。' },
+      { en: 'Some people think zoos protect animals, while others believe animals should live in nature.', ja: '動物園は動物を守ると考える人もいれば、動物は自然の中で暮らすべきだと考える人もいます。' }
+    ]
+  },
+  {
+    id: 'p-conclusion1', category: '結論', level: '2級',
+    name: 'In conclusion / For these reasons（結論を述べる）',
+    structure: 'In conclusion, I think (that) 〜. ／ For these reasons, I believe (that) 〜.',
+    tip: '結論は主張の言い換え。序論と一語一句同じにせず、think→believe に変えるなど少し表現を変えるのがコツ。',
+    examples: [
+      { en: 'In conclusion, I think that students should do volunteer work.', ja: '結論として、学生はボランティア活動をすべきだと思います。' },
+      { en: 'For these reasons, I believe that online learning will become more popular.', ja: 'これらの理由から、オンライン学習はより人気になると信じています。' },
+      { en: 'In conclusion, working from home has more advantages than disadvantages.', ja: '結論として、在宅勤務には短所より長所のほうが多いです。' }
+    ]
+  },
+  {
+    id: 'p-summary1', category: '要約', level: '準1級',
+    name: 'According to the passage, 〜（本文によると）',
+    structure: 'According to the passage, + 主語 + 動詞 〜.',
+    tip: '準1級の要約問題では本文の丸写しはNG。According to 〜 で始めて自分の言葉に言い換え（パラフレーズ）しましょう。',
+    examples: [
+      { en: 'According to the passage, more schools are introducing tablet computers.', ja: '本文によると、より多くの学校がタブレット端末を導入しています。' },
+      { en: 'According to the passage, this system has both benefits and drawbacks.', ja: '本文によると、この制度には利点と欠点の両方があります。' },
+      { en: 'According to the passage, the number of people using the service has doubled.', ja: '本文によると、そのサービスの利用者数は2倍になりました。' }
+    ]
+  },
+  {
+    id: 'p-summary2', category: '要約', level: '準1級',
+    name: 'While A, B（Aである一方、B）— 対比を1文に圧縮',
+    structure: 'While + 文A, + 文B.',
+    tip: '要約では「賛成意見の段落」と「反対意見の段落」を While を使って1文にまとめると大幅に語数を圧縮できます。',
+    examples: [
+      { en: 'While this technology saves time, it also raises privacy concerns.', ja: 'この技術は時間を節約する一方で、プライバシーの懸念も生じさせます。' },
+      { en: 'While some support the new policy, others worry about its cost.', ja: '新しい政策を支持する人がいる一方で、その費用を心配する人もいます。' },
+      { en: 'While city life offers convenience, it can be expensive and stressful.', ja: '都会の生活は便利さを提供する一方で、お金がかかりストレスも多くなりえます。' }
+    ]
+  },
+  {
+    id: 'p-summary3', category: '要約', level: '準1級',
+    name: 'This suggests that 〜 / This means that 〜（つまり〜ということだ）',
+    structure: '事実の文. This suggests/means that + 主語 + 動詞 〜.',
+    examples: [
+      { en: 'Sales of electric cars have tripled. This suggests that people are becoming more interested in the environment.', ja: '電気自動車の売り上げは3倍になりました。これは人々の環境への関心が高まっていることを示しています。' },
+      { en: 'Fewer young people are reading newspapers. This means that companies need new ways to share news.', ja: '新聞を読む若者が減っています。つまり企業はニュースを伝える新しい方法が必要だということです。' }
+    ]
+  },
+  {
+    id: 'p-summary4', category: '要約', level: '準1級',
+    name: 'due to 〜 / lead to 〜（原因と結果を短く言う）',
+    structure: '結果 + due to + 原因(名詞) ／ 原因 + lead(s) to + 結果(名詞)',
+    tip: '要約で「because 主語+動詞」を「due to + 名詞」に変えると語数を減らせます。パラフレーズの武器として必須。',
+    examples: [
+      { en: 'The event was canceled due to heavy rain.', ja: 'そのイベントは大雨のため中止されました。' },
+      { en: 'Lack of sleep can lead to health problems.', ja: '睡眠不足は健康問題につながる可能性があります。' },
+      { en: 'The new law led to a decrease in traffic accidents.', ja: 'その新しい法律は交通事故の減少につながりました。' }
+    ]
+  },
+  {
+    id: 'p-structure1', category: '重要構文', level: '2級',
+    name: 'not only A but also B（AだけでなくBも）',
+    structure: 'not only + A + but also + B（AとBは同じ形をそろえる）',
+    caution: 'AとBの品詞・形をそろえること。× not only cheap but also has good quality → ○ not only cheap but also high in quality',
+    examples: [
+      { en: 'Reading books is not only fun but also educational.', ja: '読書は楽しいだけでなく、ためにもなります。' },
+      { en: 'She speaks not only English but also French.', ja: '彼女は英語だけでなくフランス語も話します。' },
+      { en: 'Exercise is good not only for our bodies but also for our minds.', ja: '運動は体だけでなく心にも良いです。' }
+    ]
+  },
+  {
+    id: 'p-structure2', category: '重要構文', level: '2級',
+    name: 'enable / allow / help + 人 + to do（人が〜できるようにする）',
+    structure: '主語 + enable(s)/allow(s)/help(s) + 人 + to + 動詞の原形',
+    tip: '無生物主語の構文。「スマホのおかげで〜できる」→ Smartphones enable us to 〜 と書けると2級ライティングで高評価。',
+    examples: [
+      { en: 'The Internet enables us to communicate with people around the world.', ja: 'インターネットのおかげで世界中の人々とやりとりできます。' },
+      { en: 'This app allows students to study English anywhere.', ja: 'このアプリで学生はどこでも英語を勉強できます。' },
+      { en: 'Volunteer work helps young people to understand their communities.', ja: 'ボランティア活動は若者が地域社会を理解する助けになります。' }
+    ]
+  },
+  {
+    id: 'p-structure3', category: '重要構文', level: '2級',
+    name: 'the number of 〜 is increasing/decreasing（〜の数が増えて/減っている）',
+    structure: 'The number of + 名詞(複数形) + is increasing / is decreasing',
+    caution: 'The number of 〜 は単数扱い。× The number of tourists are increasing → ○ The number of tourists is increasing。a number of（たくさんの）との混同にも注意。',
+    examples: [
+      { en: 'The number of foreign tourists visiting Japan is increasing.', ja: '日本を訪れる外国人観光客の数は増えています。' },
+      { en: 'The number of children in this town is decreasing every year.', ja: 'この町の子どもの数は毎年減っています。' },
+      { en: 'The number of people who work from home has increased since 2020.', ja: '在宅勤務をする人の数は2020年以降増えました。' }
+    ]
+  },
+  {
+    id: 'p-structure4', category: '重要構文', level: '2級',
+    name: 'If + 過去形, 主語 + would/could（仮定法過去）',
+    structure: 'If + 主語 + 動詞の過去形, 主語 + would/could + 動詞の原形',
+    caution: '現実に反する仮定はifの中が過去形、be動詞は were。× If I am you, I will... → ○ If I were you, I would...',
+    examples: [
+      { en: 'If I had more time, I would travel around the world.', ja: 'もしもっと時間があれば、世界中を旅行するのに。' },
+      { en: 'If I were you, I would take that job.', ja: 'もし私があなたなら、その仕事を引き受けるでしょう。' },
+      { en: 'If everyone used public transportation, the air would be cleaner.', ja: 'もし全員が公共交通機関を使えば、空気はもっときれいになるでしょう。' }
+    ]
+  },
+  {
+    id: 'p-structure5', category: '重要構文', level: '2級',
+    name: 'It is said that 〜 / 〜 is said to be ...（〜と言われている）',
+    structure: 'It is said that + 主語 + 動詞 〜.',
+    examples: [
+      { en: 'It is said that breakfast is the most important meal of the day.', ja: '朝食は1日で最も重要な食事だと言われています。' },
+      { en: 'It is said that this temple was built 500 years ago.', ja: 'この寺は500年前に建てられたと言われています。' },
+      { en: 'Green tea is said to be good for our health.', ja: '緑茶は健康に良いと言われています。' }
+    ]
+  },
+  {
+    id: 'p-structure6', category: '重要構文', level: '準1級',
+    name: 'tend to do / be likely to do（〜しがちだ・〜しそうだ）',
+    structure: '主語 + tend(s) to + 動詞の原形 ／ 主語 + is likely to + 動詞の原形',
+    tip: '断定を避けて客観的に書ける表現。準1級のエッセイ・要約で「一般的傾向」を述べるときに便利。',
+    examples: [
+      { en: 'Young people tend to spend a lot of time on social media.', ja: '若者はSNSに多くの時間を費やしがちです。' },
+      { en: 'People who exercise regularly are likely to live longer.', ja: '定期的に運動する人は長生きする可能性が高いです。' },
+      { en: 'Prices are likely to rise next year.', ja: '来年、物価は上がりそうです。' }
+    ]
+  },
+  {
+    id: 'p-structure7', category: '重要構文', level: '準1級',
+    name: 'There is no doubt that 〜（〜であることは間違いない）',
+    structure: 'There is no doubt that + 主語 + 動詞 〜.',
+    examples: [
+      { en: 'There is no doubt that technology has changed the way we live.', ja: '技術が私たちの生活様式を変えたことは間違いありません。' },
+      { en: 'There is no doubt that education plays a key role in society.', ja: '教育が社会で重要な役割を果たすことは間違いありません。' }
+    ]
+  }
+];
+
+let patternFilter = 'all';
+document.querySelectorAll('#pattern-filters .chip').forEach(c => {
+  c.addEventListener('click', () => {
+    patternFilter = c.dataset.pfilter;
+    document.querySelectorAll('#pattern-filters .chip').forEach(x => x.classList.toggle('active', x === c));
+    renderPatterns();
+  });
+});
+
+function allPatterns() {
+  return BUILTIN_PATTERNS.concat(db.patternsCustom);
+}
+
+function addCustomPattern() {
+  const name = document.getElementById('custom-pattern-name').value.trim();
+  const structure = document.getElementById('custom-pattern-structure').value.trim();
+  const exRaw = document.getElementById('custom-pattern-examples').value.trim();
+  if (!name) { toast('パターン名を入力してください'); return; }
+  const examples = exRaw.split('\n').filter(l => l.trim()).map(l => {
+    const parts = l.split('／');
+    return { en: parts[0].trim(), ja: (parts[1] || '').trim() };
+  });
+  db.patternsCustom.push({ id: 'c-' + uid(), name, structure, category: '重要構文', level: '自作', examples });
+  document.getElementById('custom-pattern-name').value = '';
+  document.getElementById('custom-pattern-structure').value = '';
+  document.getElementById('custom-pattern-examples').value = '';
+  save();
+  renderPatterns();
+  toast('パターンを追加しました ✔');
+}
+
+function deleteCustomPattern(id) {
+  if (!confirm('このパターンを削除しますか？')) return;
+  db.patternsCustom = db.patternsCustom.filter(p => p.id !== id);
+  delete db.mySentences[id];
+  save();
+  renderPatterns();
+}
+
+function addMySentence(pid) {
+  const input = document.getElementById('ms-input-' + pid);
+  const text = input.value.trim();
+  if (!text) return;
+  if (!db.mySentences[pid]) db.mySentences[pid] = [];
+  db.mySentences[pid].push({ text, date: today() });
+  bump('sentence');
+  addXP(3);
+  input.value = '';
+  save();
+  renderPatterns(pid);
+  toast('自分の文を保存しました ✔');
+}
+
+function deleteMySentence(pid, idx) {
+  db.mySentences[pid].splice(idx, 1);
+  save();
+  renderPatterns(pid);
+}
+
+function sendToStock(pid, idx) {
+  const s = db.mySentences[pid][idx];
+  const p = allPatterns().find(x => x.id === pid);
+  db.expressions.unshift({
+    id: uid(), en: s.text, ja: '',
+    category: 'writing', level: '2級',
+    memo: 'パターン練習より: ' + (p ? p.name : ''),
+    created: today(), stage: 0, nextReview: today()
+  });
+  save();
+  toast('表現ストックに送りました ✔');
+}
+
+function renderPatterns(keepOpenId) {
+  const openIds = new Set(
+    Array.from(document.querySelectorAll('#pattern-list details[open]')).map(d => d.dataset.pid)
+  );
+  if (keepOpenId) openIds.add(keepOpenId);
+  const list = document.getElementById('pattern-list');
+  let items = allPatterns();
+  if (patternFilter !== 'all') items = items.filter(p => p.category === patternFilter);
+  if (!items.length) {
+    list.innerHTML = '<div class="empty">このカテゴリのパターンはまだありません。</div>';
+    return;
+  }
+  list.innerHTML = items.map(p => {
+    const mine = db.mySentences[p.id] || [];
+    const isCustom = p.id.startsWith('c-');
+    return `<details class="pattern" data-pid="${p.id}" ${openIds.has(p.id) ? 'open' : ''}>
+      <summary>
+        <span style="flex:1">${esc(p.name)}</span>
+        <span class="tag level">${esc(p.level)}</span>
+        <span class="tag writing">${esc(p.category)}</span>
+        ${mine.length ? `<span class="tag grammar">自作 ${mine.length}文</span>` : ''}
+      </summary>
+      <div class="pattern-body">
+        ${p.structure ? `<div class="structure">${esc(p.structure)}</div>` : ''}
+        ${(p.examples || []).map(e => `<div class="example"><div class="en">${esc(e.en)}</div>${e.ja ? `<div class="ja">${esc(e.ja)}</div>` : ''}</div>`).join('')}
+        ${p.caution ? `<div class="caution">${esc(p.caution)}</div>` : ''}
+        ${p.tip ? `<div class="tip">${esc(p.tip)}</div>` : ''}
+        <div class="my-sentences">
+          <h4>✏️ このパターンで自分の文を作る（作った文はここに蓄積されます）</h4>
+          ${mine.map((s, i) => `<div class="my-sentence">
+              <span class="date">${s.date}</span>
+              <span>${esc(s.text)}</span>
+              <span class="del" onclick="sendToStock('${p.id}',${i})" title="表現ストックへ" style="color:var(--accent)">→ストック</span>
+              <span class="del" onclick="deleteMySentence('${p.id}',${i})">削除</span>
+            </div>`).join('')}
+          <div class="row" style="margin-top:8px">
+            <input type="text" id="ms-input-${p.id}" placeholder="この型で英文を作ってみましょう"
+              onkeydown="if(event.key==='Enter'){addMySentence('${p.id}')}">
+            <button class="btn small no-grow" onclick="addMySentence('${p.id}')">保存</button>
+          </div>
+        </div>
+        ${isCustom ? `<div style="margin-top:10px;text-align:right"><button class="btn small danger" onclick="deleteCustomPattern('${p.id}')">このパターンを削除</button></div>` : ''}
+      </div>
+    </details>`;
+  }).join('');
+}
+
+/* ==================== 文法リファレンス ==================== */
+const GRAMMAR_DB = [
+  {
+    title: '現在完了（have + 過去分詞）', level: '2級',
+    keywords: '現在完了 have has since for just already yet ever never been gone',
+    body: `<p>「過去から現在へのつながり」を表す時制。<strong>完了・経験・継続</strong>の3用法があります。</p>
+      <div class="example"><div class="en">I have just finished my homework.（完了）</div><div class="ja">ちょうど宿題を終えたところです。</div></div>
+      <div class="example"><div class="en">I have visited Kyoto three times.（経験）</div><div class="ja">京都には3回行ったことがあります。</div></div>
+      <div class="example"><div class="en">She has lived here for ten years.（継続）</div><div class="ja">彼女は10年間ここに住んでいます。</div></div>`,
+    caution: 'yesterday や last year など「過去の一時点」を表す語とは一緒に使えない。× I have seen him yesterday. → ○ I saw him yesterday.　また have been to（行ったことがある）と have gone to（行ってしまって今いない）を区別。'
+  },
+  {
+    title: '受動態（be + 過去分詞）', level: '2級',
+    keywords: '受動態 受け身 passive be動詞 過去分詞 by',
+    body: `<p>「〜される」。<strong>be動詞 + 過去分詞</strong>。行為者を言うときは by 〜。</p>
+      <div class="example"><div class="en">This book was written by a famous author.</div><div class="ja">この本は有名な作家によって書かれました。</div></div>
+      <div class="example"><div class="en">English is spoken in many countries.</div><div class="ja">英語は多くの国で話されています。</div></div>
+      <div class="example"><div class="en">The new hospital will be built next year.</div><div class="ja">新しい病院は来年建てられます。</div></div>`,
+    caution: 'be動詞の入れ忘れに注意。× This book written by... → ○ This book was written by...　「be surprised at / be interested in / be known to」など by 以外の前置詞をとる熟語も頻出。'
+  },
+  {
+    title: '不定詞と動名詞（to do / doing）', level: '2級',
+    keywords: '不定詞 動名詞 to do doing enjoy finish stop remember forget want decide',
+    body: `<p>動詞によって目的語に<strong>to不定詞をとるか動名詞をとるか</strong>が決まっています。</p>
+      <p><strong>to不定詞のみ</strong>: want, hope, decide, plan, promise, expect<br>
+      <strong>動名詞のみ</strong>: enjoy, finish, stop, give up, avoid, mind, practice<br>
+      <strong>両方OK（意味が変わる）</strong>: remember, forget, try, stop</p>
+      <div class="example"><div class="en">I enjoy playing tennis. / I want to play tennis.</div><div class="ja">テニスをするのが好きです。／テニスをしたいです。</div></div>
+      <div class="example"><div class="en">Remember to lock the door.（これから施錠することを忘れずに）</div><div class="ja">ドアの鍵をかけるのを忘れないで。</div></div>
+      <div class="example"><div class="en">I remember locking the door.（施錠したことを覚えている）</div><div class="ja">ドアに鍵をかけたのを覚えています。</div></div>`,
+    caution: '× I enjoy to play tennis. → ○ I enjoy playing tennis.　stop to do は「〜するために立ち止まる」、stop doing は「〜するのをやめる」。'
+  },
+  {
+    title: '分詞（現在分詞・過去分詞の形容詞用法）', level: '2級',
+    keywords: '分詞 現在分詞 過去分詞 ing ed 修飾 boring bored exciting excited',
+    body: `<p>名詞を修飾する分詞。<strong>〜している=現在分詞(-ing)、〜される=過去分詞(-ed)</strong>。</p>
+      <div class="example"><div class="en">The boy playing soccer over there is my brother.</div><div class="ja">向こうでサッカーをしている少年は私の弟です。</div></div>
+      <div class="example"><div class="en">This is a picture taken in Okinawa.</div><div class="ja">これは沖縄で撮られた写真です。</div></div>
+      <div class="example"><div class="en">The movie was exciting, so I was excited.</div><div class="ja">映画はワクワクさせるものだったので、私はワクワクした。</div></div>`,
+    caution: '感情動詞は「物が -ing / 人が -ed」が基本。× I was boring. （私は退屈な人間だ、の意味になる）→ ○ I was bored.（退屈していた）'
+  },
+  {
+    title: '分詞構文', level: '準1級',
+    keywords: '分詞構文 ing 副詞句 while when because 準1級',
+    body: `<p>接続詞+主語を省略して <strong>-ing（または過去分詞）で文を始める</strong>書き方。準1級の長文・要約で頻出。</p>
+      <div class="example"><div class="en">Walking along the street, I met an old friend.</div><div class="ja">通りを歩いていると、旧友に会いました。（= While I was walking...）</div></div>
+      <div class="example"><div class="en">Written in simple English, this book is easy to read.</div><div class="ja">簡単な英語で書かれているので、この本は読みやすい。</div></div>
+      <div class="example"><div class="en">Not knowing what to say, she remained silent.</div><div class="ja">何と言えばよいか分からず、彼女は黙っていました。</div></div>`,
+    caution: '分詞の意味上の主語は主節の主語と一致させる。否定は Not を分詞の前に置く。'
+  },
+  {
+    title: '関係代名詞（who / which / that / whose）', level: '2級',
+    keywords: '関係代名詞 who which that whose 先行詞 目的格 主格',
+    body: `<p>名詞（先行詞）を後ろから説明する。<strong>人→who、物→which、両方→that</strong>。所有は whose。</p>
+      <div class="example"><div class="en">I have a friend who lives in Canada.</div><div class="ja">カナダに住んでいる友人がいます。</div></div>
+      <div class="example"><div class="en">This is the book which I bought yesterday.（目的格は省略可）</div><div class="ja">これは昨日買った本です。</div></div>
+      <div class="example"><div class="en">I know a boy whose father is a doctor.</div><div class="ja">父親が医者の少年を知っています。</div></div>`,
+    caution: '関係詞節の中で主語や目的語を重複させない。× the book which I bought it yesterday → ○ the book which I bought yesterday'
+  },
+  {
+    title: '関係副詞（where / when / why / how）', level: '2級',
+    keywords: '関係副詞 where when why how 場所 時 理由',
+    body: `<p>先行詞が<strong>場所→where、時→when、理由(the reason)→why</strong>。</p>
+      <div class="example"><div class="en">This is the town where I was born.</div><div class="ja">ここが私の生まれた町です。</div></div>
+      <div class="example"><div class="en">I remember the day when we first met.</div><div class="ja">私たちが初めて会った日を覚えています。</div></div>
+      <div class="example"><div class="en">That is the reason why I was late.</div><div class="ja">それが私が遅れた理由です。</div></div>`,
+    caution: 'where と which の使い分け：後ろの文が「完全な文」なら where、動詞や前置詞の目的語が欠けていれば which。the house where I live ／ the house which I live in'
+  },
+  {
+    title: '仮定法過去（If + 過去形, would）', level: '2級',
+    keywords: '仮定法 過去 if would could were 現実に反する',
+    body: `<p><strong>現在の事実に反する仮定</strong>。「もし（今）〜なら、…するのに」。</p>
+      <div class="structure">If + 主語 + 動詞の過去形（be動詞は were）, 主語 + would / could + 動詞の原形</div>
+      <div class="example"><div class="en">If I had a million yen, I would buy a new car.</div><div class="ja">もし100万円あれば、新しい車を買うのに。</div></div>
+      <div class="example"><div class="en">If I were you, I would apologize to her.</div><div class="ja">もし私があなたなら、彼女に謝るでしょう。</div></div>
+      <div class="example"><div class="en">I wish I could speak English fluently.</div><div class="ja">英語を流ちょうに話せたらいいのに。</div></div>`,
+    caution: '単なる条件（起こりうる話）なら仮定法ではなく直説法：If it rains tomorrow, I will stay home.（現在形 + will）。仮定法との区別が2級で頻出。'
+  },
+  {
+    title: '仮定法過去完了（If + had 過去分詞, would have）', level: '準1級',
+    keywords: '仮定法 過去完了 had would have could have もし〜だったら',
+    body: `<p><strong>過去の事実に反する仮定</strong>。「もし（あのとき）〜だったら、…しただろうに」。</p>
+      <div class="structure">If + 主語 + had + 過去分詞, 主語 + would / could + have + 過去分詞</div>
+      <div class="example"><div class="en">If I had studied harder, I would have passed the exam.</div><div class="ja">もっと勉強していたら、試験に受かっていただろうに。</div></div>
+      <div class="example"><div class="en">If you had told me earlier, I could have helped you.</div><div class="ja">もっと早く言ってくれていたら、手伝えたのに。</div></div>`,
+    caution: '前半（if節）と後半の時制の組み合わせに注意。混合型（If I had taken that job, I would be rich now.）は準1級レベル。'
+  },
+  {
+    title: '比較（比較級・最上級・as as）', level: '2級',
+    keywords: '比較 比較級 最上級 than as more most 倍数 twice',
+    body: `<div class="example"><div class="en">Health is more important than money.</div><div class="ja">健康はお金より大切です。</div></div>
+      <div class="example"><div class="en">This is the most interesting book I have ever read.</div><div class="ja">これは今まで読んだ中で最も面白い本です。</div></div>
+      <div class="example"><div class="en">Tokyo is one of the largest cities in the world.</div><div class="ja">東京は世界最大級の都市の1つです。</div></div>
+      <div class="example"><div class="en">This bag is twice as expensive as that one.</div><div class="ja">このかばんはあれの2倍の値段です。</div></div>`,
+    caution: 'one of the + 最上級 + 複数名詞（× one of the largest city → ○ cities）。「ますます」は 比較級 and 比較級（more and more popular）。'
+  },
+  {
+    title: '助動詞（should / must / may / can など）', level: '2級',
+    keywords: '助動詞 should must may might can could had better 推量 義務',
+    body: `<p><strong>義務・推量の強さ</strong>で使い分けます。</p>
+      <p>must（〜に違いない/〜せねば）＞ should（〜のはず/〜すべき）＞ may/might（〜かもしれない）</p>
+      <div class="example"><div class="en">You must be tired after such a long trip.</div><div class="ja">そんな長旅の後ではお疲れに違いありません。</div></div>
+      <div class="example"><div class="en">We should reduce the amount of plastic we use.</div><div class="ja">私たちはプラスチックの使用量を減らすべきです。</div></div>
+      <div class="example"><div class="en">It may rain this afternoon.</div><div class="ja">今日の午後は雨が降るかもしれません。</div></div>
+      <div class="example"><div class="en">She must have missed the train.（過去の推量）</div><div class="ja">彼女は電車に乗り遅れたに違いありません。</div></div>`,
+    caution: 'must not（〜してはいけない）と don\'t have to（〜しなくてよい）は意味がまったく違うので注意。'
+  },
+  {
+    title: '接続詞（although / while / unless / as soon as など）', level: '2級',
+    keywords: '接続詞 although though while unless until as soon as when because',
+    body: `<div class="example"><div class="en">Although it was raining, we went hiking.</div><div class="ja">雨が降っていたけれども、私たちはハイキングに行きました。</div></div>
+      <div class="example"><div class="en">You will fail unless you study hard.</div><div class="ja">一生懸命勉強しない限り、失敗するでしょう。</div></div>
+      <div class="example"><div class="en">As soon as I got home, I took a bath.</div><div class="ja">帰宅するとすぐに風呂に入りました。</div></div>`,
+    caution: 'although と but を同じ文で併用しない。× Although it was raining, but we went... → ○ どちらか一方のみ。時・条件の副詞節の中は未来でも現在形：When he comes（× will come）, I will tell him.'
+  },
+  {
+    title: '間接疑問文（I don\'t know where he lives.）', level: '2級',
+    keywords: '間接疑問 疑問詞 語順 know wonder where what how',
+    body: `<p>疑問文が文の一部になると<strong>「疑問詞 + 主語 + 動詞」の平叙文の語順</strong>になります。</p>
+      <div class="example"><div class="en">I don't know where he lives.</div><div class="ja">彼がどこに住んでいるのか知りません。</div></div>
+      <div class="example"><div class="en">Could you tell me how I can get to the station?</div><div class="ja">駅への行き方を教えていただけますか。</div></div>
+      <div class="example"><div class="en">I wonder why she was absent yesterday.</div><div class="ja">なぜ彼女が昨日休んだのだろう。</div></div>`,
+    caution: '語順の誤りが最頻出。× I don\'t know where does he live. → ○ I don\'t know where he lives.'
+  },
+  {
+    title: '使役動詞・知覚動詞（make / let / have / see / hear）', level: '準1級',
+    keywords: '使役 make let have get 知覚 see hear 原形不定詞',
+    body: `<p><strong>make/let/have + 人 + 動詞の原形</strong>（to は付けない）。get だけは to が必要。</p>
+      <div class="example"><div class="en">My mother made me clean my room.</div><div class="ja">母は私に部屋を掃除させました。</div></div>
+      <div class="example"><div class="en">My parents let me study abroad.</div><div class="ja">両親は私の留学を許してくれました。</div></div>
+      <div class="example"><div class="en">I got my brother to help me with my homework.</div><div class="ja">兄に宿題を手伝ってもらいました。</div></div>
+      <div class="example"><div class="en">I saw him cross the street.</div><div class="ja">彼が通りを渡るのを見ました。</div></div>`,
+    caution: '× My mother made me to clean... → ○ made me clean。「〜してもらう（物）」は have/get + 物 + 過去分詞：I had my hair cut.（髪を切ってもらった）'
+  },
+  {
+    title: '冠詞・可算/不可算名詞', level: '2級',
+    keywords: '冠詞 a an the 可算 不可算 information advice money furniture',
+    body: `<p>不可算名詞（a を付けず複数形にしない）: <strong>information, advice, money, furniture, homework, news, water</strong> など。</p>
+      <div class="example"><div class="en">Could you give me some advice?</div><div class="ja">アドバイスをいただけますか。</div></div>
+      <div class="example"><div class="en">I have a lot of homework to do today.</div><div class="ja">今日はやるべき宿題がたくさんあります。</div></div>
+      <div class="example"><div class="en">The Internet gives us a lot of useful information.</div><div class="ja">インターネットは有益な情報をたくさん与えてくれます。</div></div>`,
+    caution: '× many informations / an advice → ○ much information / a piece of advice。数えるときは a piece of 〜 を使う。'
+  },
+  {
+    title: '前置詞のつく重要熟語', level: '2級',
+    keywords: '前置詞 熟語 depend on succeed in be interested in be famous for look forward to',
+    body: `<div class="example"><div class="en">It depends on the weather.</div><div class="ja">それは天気次第です。</div></div>
+      <div class="example"><div class="en">She succeeded in passing the exam.</div><div class="ja">彼女は試験の合格に成功しました。</div></div>
+      <div class="example"><div class="en">Kyoto is famous for its old temples.</div><div class="ja">京都は古い寺で有名です。</div></div>
+      <div class="example"><div class="en">I'm looking forward to seeing you.</div><div class="ja">お会いできるのを楽しみにしています。</div></div>`,
+    caution: 'look forward to の to は前置詞なので後ろは動名詞。× looking forward to see you → ○ looking forward to seeing you'
+  },
+  {
+    title: '時制の一致と話法', level: '準1級',
+    keywords: '時制の一致 話法 said told that 過去形 大過去 had',
+    body: `<p>主節が過去形なら、that節の中も<strong>1つ過去にずらす</strong>のが原則。</p>
+      <div class="example"><div class="en">He said that he was busy.</div><div class="ja">彼は忙しいと言いました。</div></div>
+      <div class="example"><div class="en">She told me that she had already finished the report.</div><div class="ja">彼女はすでにレポートを終えたと私に言いました。</div></div>
+      <div class="example"><div class="en">I thought it would rain soon.</div><div class="ja">すぐに雨が降るだろうと思いました。</div></div>`,
+    caution: 'say と tell の使い分け：tell は必ず「tell + 人」。× He said me that... → ○ He told me that... / He said to me that...'
+  },
+  {
+    title: '無生物主語構文（準1級ライティングの武器）', level: '準1級',
+    keywords: '無生物主語 make enable allow prevent cause help 物主語',
+    body: `<p>「物・事」を主語にして<strong>因果関係を1文で表す</strong>、準1級らしい英語の書き方。</p>
+      <div class="example"><div class="en">This graph shows that the population is decreasing.</div><div class="ja">このグラフは人口が減少していることを示しています。</div></div>
+      <div class="example"><div class="en">Heavy snow prevented us from going out.</div><div class="ja">大雪のせいで外出できませんでした。</div></div>
+      <div class="example"><div class="en">The new system made it possible for us to work more efficiently.</div><div class="ja">新しいシステムのおかげでより効率的に働けるようになりました。</div></div>
+      <div class="example"><div class="en">A few minutes' walk brought me to the station.</div><div class="ja">数分歩くと駅に着きました。</div></div>`,
+    caution: 'prevent/stop/keep + 人 + from -ing の from を忘れやすい。× prevented us going out → ○ prevented us from going out'
+  }
+];
+
+function renderGrammar() {
+  const q = document.getElementById('grammar-search').value.trim().toLowerCase();
+  const list = document.getElementById('grammar-list');
+  let items = GRAMMAR_DB;
+  if (q) items = items.filter(g =>
+    g.title.toLowerCase().includes(q) || g.keywords.toLowerCase().includes(q) || g.body.toLowerCase().includes(q));
+  if (!items.length) {
+    list.innerHTML = '<div class="empty">見つかりませんでした。下の「質問ノート」に記録して、AIに聞いてみましょう。</div>';
+    return;
+  }
+  list.innerHTML = items.map((g, i) => `<details class="grammar-entry" ${q ? 'open' : ''}>
+    <summary><span style="flex:1">${esc(g.title)}</span><span class="tag level">${esc(g.level)}</span></summary>
+    <div class="grammar-body">${g.body}${g.caution ? `<div class="caution">${esc(g.caution)}</div>` : ''}</div>
+  </details>`).join('');
+}
+
+/* ==================== 質問ノート ==================== */
+function addQuestion() {
+  const q = document.getElementById('new-question').value.trim();
+  if (!q) { toast('質問を入力してください'); return; }
+  db.questions.unshift({ id: uid(), q, a: '', created: today() });
+  addXP(3);
+  document.getElementById('new-question').value = '';
+  save();
+  renderQA();
+  toast('質問を記録しました ✔');
+}
+
+function copyAIPrompt() {
+  const q = document.getElementById('new-question').value.trim();
+  if (!q) { toast('先に質問を入力してください'); return; }
+  const prompt = `英検2級〜準1級を勉強している日本の小学生です。次の英文法の質問に、日本語で、例文を3つ以上つけて、小学生にも分かるようにやさしく答えてください。よくある間違いも教えてください。\n\n質問: ${q}`;
+  copyText(prompt, '質問文をコピーしました 📋');
+}
+
+function saveAnswer(id) {
+  const ta = document.getElementById('answer-' + id);
+  const item = db.questions.find(x => x.id === id);
+  if (item) { item.a = ta.value.trim(); addXP(2); save(); renderQA(); toast('回答を保存しました ✔'); }
+}
+
+function deleteQuestion(id) {
+  if (!confirm('この質問を削除しますか？')) return;
+  db.questions = db.questions.filter(x => x.id !== id);
+  save();
+  renderQA();
+}
+
+function editAnswer(id) {
+  const item = db.questions.find(x => x.id === id);
+  if (!item) return;
+  item._editing = true;
+  renderQA();
+}
+
+function renderQA() {
+  const list = document.getElementById('qa-list');
+  if (!db.questions.length) {
+    list.innerHTML = '<div class="empty">まだ質問がありません。</div>';
+    return;
+  }
+  list.innerHTML = db.questions.map(x => `<div class="qa-item">
+    <div class="q">Q. ${esc(x.q)} <span style="font-size:.7rem;color:#9ca3af">(${x.created})</span></div>
+    ${x._editing || !x.a
+      ? `<textarea id="answer-${x.id}" placeholder="AIや参考書で調べた答えをここに貼り付けて保存" style="margin-top:8px">${esc(x.a)}</textarea>
+         <div style="margin-top:6px"><button class="btn small" onclick="saveAnswer('${x.id}')">回答を保存</button>
+         <button class="btn small danger" onclick="deleteQuestion('${x.id}')">質問を削除</button></div>`
+      : `<div class="a">A. ${esc(x.a)}</div>
+         <div style="margin-top:6px"><button class="btn small ghost" onclick="editAnswer('${x.id}')">回答を編集</button>
+         <button class="btn small danger" onclick="deleteQuestion('${x.id}')">削除</button></div>`}
+  </div>`).join('');
+}
+
+/* ==================== ライティング ==================== */
+const SCORE_KEYS = [
+  ['c', '内容'], ['s', '構成'], ['v', '語彙'], ['g', '文法']
+];
+const WEAKNESS_TIPS = {
+  c: 'TOPICに正面から答え、理由には必ず具体例(For example, ...)を足しましょう。理由が「短い・抽象的」だと内容点が伸びません。',
+  s: '「序論→理由2つ(First / Second)→結論(In conclusion)」の型を毎回守り、つなぎ言葉を意識しましょう。パターン練習タブの「意見・理由・結論」カテゴリが役立ちます。',
+  v: '同じ単語の繰り返しを避け、言い換えを増やしましょう。採点で提案された言い換え表現は「表現ストック」の⭐頻用に登録して復習を。',
+  g: '指摘された文法ミスは1つずつ「表現ストック」の❌間違えたに登録し、復習タブで反復しましょう。文法Q&Aタブの該当項目も確認を。'
+};
+
+function wordCountGuide(level, type) {
+  if (level === '2級') {
+    return type === 'Eメール' ? '2級のEメール問題は40〜50語が目安' : '2級の意見論述は80〜100語が目安';
+  }
+  return type === '要約' ? '準1級の要約は60〜70語が目安' : '準1級の意見論述は120〜150語が目安';
+}
+
+function scoringPromptFor(e) {
+  return `あなたは英検${e.level}ライティングの採点者です。私は英検${e.level}合格を目指す日本の小学生です。以下の【問題】に対する【私の解答】を、英検の採点基準4観点（内容・構成・語彙・文法、各0〜4点、計16点）で採点してください。${wordCountGuide(e.level, e.type)}です。誤りの説明・アドバイス・模範解答は、小学生にも分かるやさしい言葉と単語で書いてください。
+
+次の形式で日本語で出力してください:
+1. 採点結果: 内容◯/4、構成◯/4、語彙◯/4、文法◯/4、合計◯/16（各観点の理由も一言ずつ）
+2. 誤りの指摘: 文法・語彙・スペルの誤りを「誤 → 正」の形ですべて挙げ、理由を短く説明
+3. レベルアップ提案: より自然な表現・高得点につながる言い換えを3つ以上
+4. 模範解答: ${e.level}レベル・目安語数内の模範解答を1つ
+5. 次回へのアドバイス: 具体的な改善ポイントを3つ
+
+【問題】(${e.type})
+${e.question}
+
+【私の解答】
+${e.answer}`;
+}
+
+function copyText(text, okMsg) {
+  const ta = document.getElementById('modal-textarea');
+  ta.value = text;
+  document.getElementById('modal-status').textContent = '';
+  document.getElementById('prompt-modal').classList.add('show');
+  tryCopy(text).then(ok => {
+    document.getElementById('modal-status').textContent = ok
+      ? '✅ コピーできています。あとはClaudeに貼り付けるだけ！'
+      : 'うまくコピーできない場合は「📋 コピーする」を押すか、文章を全選択してコピーしてください。';
+    if (ok) toast(okMsg);
+  });
+}
+function tryCopy(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    return navigator.clipboard.writeText(text).then(() => true, () => fallbackCopy());
+  }
+  return Promise.resolve(fallbackCopy());
+}
+function fallbackCopy() {
+  const ta = document.getElementById('modal-textarea');
+  ta.focus();
+  ta.select();
+  try { return document.execCommand('copy'); } catch (e) { return false; }
+}
+function modalCopy() {
+  tryCopy(document.getElementById('modal-textarea').value).then(ok => {
+    document.getElementById('modal-status').textContent = ok
+      ? '✅ コピーしました。Claudeに貼り付けて送信してください。'
+      : '⚠ 自動コピーが使えない環境です。文章を長押し（または全選択）してコピーしてください。';
+  });
+}
+function closePromptModal() {
+  document.getElementById('prompt-modal').classList.remove('show');
+}
+
+function addEssay(withPrompt) {
+  const question = document.getElementById('essay-question').value.trim();
+  const answer = document.getElementById('essay-answer').value.trim();
+  if (!question || !answer) { toast('問題文と英作文の両方を入力してください'); return; }
+  const e = {
+    id: uid(), date: today(),
+    level: document.getElementById('essay-level').value,
+    type: document.getElementById('essay-type').value,
+    question, answer, feedback: '', scores: null
+  };
+  db.essays.unshift(e);
+  bump('essay');
+  addXP(10);
+  document.getElementById('essay-question').value = '';
+  document.getElementById('essay-answer').value = '';
+  save();
+  renderEssays(e.id);
+  if (withPrompt) {
+    copyText(scoringPromptFor(e), '保存し、採点プロンプトをコピーしました。Claudeに貼り付けて採点してもらいましょう 📋');
+  } else {
+    toast('保存しました ✔');
+  }
+}
+
+function copyEssayPrompt(id) {
+  const e = db.essays.find(x => x.id === id);
+  if (e) copyText(scoringPromptFor(e), '採点プロンプトをコピーしました 📋');
+}
+
+function saveEssayFeedback(id) {
+  const e = db.essays.find(x => x.id === id);
+  if (!e) return;
+  e.feedback = document.getElementById('fb-' + id).value.trim();
+  const scores = {};
+  let any = false;
+  SCORE_KEYS.forEach(([k]) => {
+    const v = document.getElementById('sc-' + k + '-' + id).value;
+    if (v !== '') { scores[k] = Number(v); any = true; }
+  });
+  e.scores = any ? scores : null;
+  addXP(5);
+  save();
+  renderEssays(id);
+  toast('採点結果を保存しました ✔');
+}
+
+function deleteEssay(id) {
+  if (!confirm('この問題の記録を削除しますか？')) return;
+  db.essays = db.essays.filter(x => x.id !== id);
+  save();
+  renderEssays();
+}
+
+function essayTotal(e) {
+  if (!e.scores) return null;
+  let t = 0, n = 0;
+  SCORE_KEYS.forEach(([k]) => { if (e.scores[k] != null) { t += e.scores[k]; n++; } });
+  return n === 4 ? t : null;
+}
+
+function renderEssayStats() {
+  const box = document.getElementById('essay-stats');
+  const scored = db.essays.filter(e => e.scores);
+  if (!scored.length) {
+    box.innerHTML = `<p class="hint">まだ点数の記録がありません。解いた問題に採点結果と点数を保存すると、ここに観点別の平均と弱点が表示されます。（記録済み: ${db.essays.length}問）</p>`;
+    return;
+  }
+  const avg = {};
+  SCORE_KEYS.forEach(([k]) => {
+    const vals = scored.filter(e => e.scores[k] != null).map(e => e.scores[k]);
+    avg[k] = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : null;
+  });
+  let weakest = null;
+  SCORE_KEYS.forEach(([k]) => {
+    if (avg[k] != null && (weakest === null || avg[k] < avg[weakest])) weakest = k;
+  });
+  box.innerHTML = `
+    <div class="row" style="margin-bottom:10px">
+      ${SCORE_KEYS.map(([k, label]) => `
+        <div style="text-align:center; background:${k === weakest ? 'var(--red-soft)' : 'var(--accent-soft)'}; border-radius:10px; padding:10px 6px">
+          <div style="font-size:.75rem; color:var(--sub)">${label}${k === weakest ? ' ⚠' : ''}</div>
+          <div style="font-size:1.3rem; font-weight:700; color:${k === weakest ? 'var(--red)' : 'var(--accent)'}">${avg[k] != null ? avg[k].toFixed(1) : '-'}<span style="font-size:.75rem">/4</span></div>
+        </div>`).join('')}
+    </div>
+    <p class="hint" style="margin-bottom:6px">採点済み ${scored.length}問の平均です。</p>
+    ${weakest ? `<div class="caution">いちばんの弱点は「${SCORE_KEYS.find(([k]) => k === weakest)[1]}」。${WEAKNESS_TIPS[weakest]}</div>` : ''}`;
+}
+
+function copyAnalysisPrompt() {
+  if (!db.essays.length) { toast('まず解いた問題を保存しましょう'); return; }
+  const recent = db.essays.slice(0, 10);
+  const body = recent.map((e, i) => {
+    return `--- 解答${i + 1}（${e.date} / ${e.level} / ${e.type}）---
+【問題】${e.question}
+【私の解答】${e.answer}
+${e.feedback ? '【受けた採点・講評】' + e.feedback : '【受けた採点・講評】（未採点）'}`;
+  }).join('\n\n');
+  const prompt = `私は英検2級（将来的に準1級）合格を目指す日本の小学生です。以下は私が最近解いたライティング問題の解答${recent.length}回分と、受けた採点結果です。分析結果と練習メニューは、小学生にも分かるやさしい言葉で書いてください。これらを横断的に分析して、日本語で次を教えてください:
+
+1. 繰り返している文法ミスのパターン（具体的な誤りの例と正しい形）
+2. 語彙の弱点（表現の幅・言い換え・不自然な直訳など）
+3. 構成・内容面の癖や改善点
+4. 英検の4観点（内容・構成・語彙・文法）のうち、優先して鍛えるべき観点とその理由
+5. 弱点を克服するための具体的な練習メニュー（1〜2週間分、優先度順）
+
+${body}`;
+  copyText(prompt, '弱点分析プロンプトをコピーしました。Claudeに貼り付けて分析してもらいましょう 📋');
+}
+
+function saveAnalysis() {
+  const text = document.getElementById('analysis-text').value.trim();
+  if (!text) { toast('分析結果を貼り付けてください'); return; }
+  db.analyses.unshift({ id: uid(), date: today(), text });
+  addXP(5);
+  document.getElementById('analysis-text').value = '';
+  save();
+  renderAnalyses();
+  toast('分析を保存しました ✔');
+}
+
+function deleteAnalysis(id) {
+  if (!confirm('この分析を削除しますか？')) return;
+  db.analyses = db.analyses.filter(x => x.id !== id);
+  save();
+  renderAnalyses();
+}
+
+function renderAnalyses() {
+  const list = document.getElementById('analysis-list');
+  if (!db.analyses.length) { list.innerHTML = ''; return; }
+  list.innerHTML = db.analyses.map(a => `<div class="qa-item">
+    <div class="q">🔍 弱点分析 <span style="font-size:.7rem;color:#9ca3af">(${a.date})</span></div>
+    <div class="a">${esc(a.text)}</div>
+    <div style="margin-top:6px"><button class="btn small danger" onclick="deleteAnalysis('${a.id}')">削除</button></div>
+  </div>`).join('');
+}
+
+function renderEssays(keepOpenId) {
+  const openIds = new Set(
+    Array.from(document.querySelectorAll('#essay-list details[open]')).map(d => d.dataset.eid)
+  );
+  if (keepOpenId) openIds.add(keepOpenId);
+  const list = document.getElementById('essay-list');
+  if (!db.essays.length) {
+    list.innerHTML = '<div class="empty">まだ記録がありません。上のフォームから最初の1問を保存しましょう。</div>';
+    renderEssayStats();
+    return;
+  }
+  list.innerHTML = db.essays.map(e => {
+    const total = essayTotal(e);
+    return `<details class="pattern" data-eid="${e.id}" ${openIds.has(e.id) ? 'open' : ''}>
+      <summary>
+        <span style="flex:1">${e.date}　${esc(e.question.slice(0, 40))}${e.question.length > 40 ? '…' : ''}</span>
+        <span class="tag level">${esc(e.level)}</span>
+        <span class="tag writing">${esc(e.type)}</span>
+        ${total != null ? `<span class="tag ${total >= 12 ? 'grammar' : 'mistake'}">${total}/16</span>` : (e.feedback ? '<span class="tag favorite">採点済</span>' : '<span class="tag level">未採点</span>')}
+      </summary>
+      <div class="pattern-body">
+        <h3>問題文</h3>
+        <div class="memo" style="margin-top:0">${esc(e.question)}</div>
+        <h3>自分の解答</h3>
+        <div class="memo" style="margin-top:0">${esc(e.answer)}</div>
+        <h3>点数の記録（内容・構成・語彙・文法 各0〜4点）</h3>
+        <div class="row">
+          ${SCORE_KEYS.map(([k, label]) => `<div>
+            <label>${label}</label>
+            <select id="sc-${k}-${e.id}">
+              <option value="">-</option>
+              ${[0, 1, 2, 3, 4].map(n => `<option value="${n}" ${e.scores && e.scores[k] === n ? 'selected' : ''}>${n}</option>`).join('')}
+            </select>
+          </div>`).join('')}
+        </div>
+        <label>採点結果・アドバイス（AIの回答を貼り付け）</label>
+        <textarea id="fb-${e.id}" rows="5" placeholder="Claudeから返ってきた採点・講評をここに貼り付けて保存">${esc(e.feedback)}</textarea>
+        <div style="margin-top:10px" class="row">
+          <button class="btn small no-grow" onclick="saveEssayFeedback('${e.id}')">💾 採点結果を保存</button>
+          <button class="btn small secondary no-grow" onclick="copyEssayPrompt('${e.id}')">📋 採点プロンプトをコピー</button>
+          <button class="btn small danger no-grow" onclick="deleteEssay('${e.id}')">削除</button>
+        </div>
+      </div>
+    </details>`;
+  }).join('');
+  renderEssayStats();
+}
+
+/* ==================== 話題の型 ==================== */
+function topicPromptFor(t) {
+  const words = t.level === '2級' ? '80〜100語' : '100〜120語';
+  return `私は英検${t.level}合格を目指している日本の小学生です。スピーキングとライティングの両方で使える「話題ごとの回答の型」を作っています。以下の【テーマ】について、【言いたいこと（箇条書き）】の内容を活かして、1分間で話せる英語の回答を作ってください。
+
+条件:
+- 話すのは小学生です。小学生が自分の言葉として自然に話せる、やさしい単語と短い文で作ってください
+- 大人っぽい表現や難しい抽象的な単語は使わない（例: したがって→so、〜という観点から→× など）
+- 具体例は小学生の生活（学校・家族・友だち・習いごとなど）に合ったものにする
+- 英検${t.level}の面接・ライティングでそのまま使えるレベル（${words}程度）
+- 「意見 → 理由（2つ）→ 具体例 → まとめ」の型で構成
+- 声に出して言いやすい文にする
+
+次の形式で出力してください:
+1. 【1分間スピーチ】英文（1段落）
+2. 【日本語訳】
+3. 【使い回せる型表現】この英文の中で他の話題にもそのまま使える表現を5つ（英語＋日本語訳）
+4. 【音読のポイント】区切る場所や強く読む語など2つ（小学生に分かる言葉で）
+
+【テーマ】
+${t.theme}
+
+【言いたいこと（箇条書き）】
+${t.points}`;
+}
+
+function addTopic(withPrompt) {
+  const theme = document.getElementById('topic-theme').value.trim();
+  const points = document.getElementById('topic-points').value.trim();
+  if (!theme) { toast('テーマを入力してください'); return; }
+  if (!points) { toast('言いたいことを箇条書きで入力してください'); return; }
+  const t = {
+    id: uid(), date: today(),
+    level: document.getElementById('topic-level').value,
+    theme, points, answer: '', readCount: 0
+  };
+  db.topics.unshift(t);
+  bump('topic');
+  addXP(8);
+  document.getElementById('topic-theme').value = '';
+  document.getElementById('topic-points').value = '';
+  save();
+  renderTopics(t.id);
+  if (withPrompt) {
+    copyText(topicPromptFor(t), '保存し、プロンプトをコピーしました。Claudeに貼り付けて型を作ってもらいましょう 📋');
+  } else {
+    toast('保存しました ✔');
+  }
+}
+
+function copyTopicPrompt(id) {
+  const t = db.topics.find(x => x.id === id);
+  if (t) copyText(topicPromptFor(t), 'プロンプトをコピーしました 📋');
+}
+
+function saveTopicAnswer(id) {
+  const t = db.topics.find(x => x.id === id);
+  if (!t) return;
+  t.answer = document.getElementById('ta-' + id).value.trim();
+  delete t._editing;
+  if (t.answer) addXP(5);
+  save();
+  renderTopics(id);
+  toast('回答の型を保存しました ✔');
+}
+
+function editTopicAnswer(id) {
+  const t = db.topics.find(x => x.id === id);
+  if (t) { t._editing = true; renderTopics(id); }
+}
+
+function deleteTopic(id) {
+  if (!confirm('このテーマを削除しますか？')) return;
+  db.topics = db.topics.filter(x => x.id !== id);
+  save();
+  renderTopics();
+}
+
+function countRead(id) {
+  const t = db.topics.find(x => x.id === id);
+  if (!t) return;
+  t.readCount = (t.readCount || 0) + 1;
+  g().totals.read++;
+  bump('read');
+  addXP(3);
+  save();
+  renderTopics(id);
+  toast('音読 ' + t.readCount + '回目 🎉 +3XP その調子！');
+}
+
+let readTimerHandle = null;
+function startReadTimer(id) {
+  clearInterval(readTimerHandle);
+  let sec = 60;
+  const el = document.getElementById('timer-' + id);
+  if (!el) return;
+  el.textContent = '⏱ 60秒';
+  readTimerHandle = setInterval(() => {
+    sec--;
+    const cur = document.getElementById('timer-' + id);
+    if (!cur) { clearInterval(readTimerHandle); return; }
+    if (sec <= 0) {
+      clearInterval(readTimerHandle);
+      cur.textContent = '⏰ 1分経過！言い切れましたか？';
+    } else {
+      cur.textContent = '⏱ 残り ' + sec + '秒';
+    }
+  }, 1000);
+}
+
+function renderTopics(keepOpenId) {
+  const openIds = new Set(
+    Array.from(document.querySelectorAll('#topics-list details[open]')).map(d => d.dataset.tid)
+  );
+  if (keepOpenId) openIds.add(keepOpenId);
+  const list = document.getElementById('topics-list');
+  const q = (document.getElementById('topics-search').value || '').trim().toLowerCase();
+  let items = db.topics;
+  if (q) items = items.filter(t =>
+    t.theme.toLowerCase().includes(q) || (t.points || '').toLowerCase().includes(q) || (t.answer || '').toLowerCase().includes(q));
+  if (!items.length) {
+    list.innerHTML = '<div class="empty">まだ型がありません。よく出るテーマ（環境・教育・技術・健康・仕事など）から1つ作ってみましょう。</div>';
+    return;
+  }
+  list.innerHTML = items.map(t => `<details class="pattern" data-tid="${t.id}" ${openIds.has(t.id) ? 'open' : ''}>
+    <summary>
+      <span style="flex:1">${esc(t.theme)}</span>
+      <span class="tag level">${esc(t.level)}</span>
+      ${t.answer ? '<span class="tag grammar">型あり</span>' : '<span class="tag mistake">英文未作成</span>'}
+      ${t.readCount ? `<span class="tag favorite">音読${t.readCount}回</span>` : ''}
+    </summary>
+    <div class="pattern-body">
+      <h3>言いたいこと（箇条書き）</h3>
+      <div class="memo" style="margin-top:0">${esc(t.points)}</div>
+      <h3>回答の型（1分間スピーチ）</h3>
+      ${t.answer && !t._editing
+        ? `<div class="memo" style="margin-top:0; background:var(--teal-soft)">${esc(t.answer)}</div>
+           <div style="margin-top:10px" class="row">
+             <button class="btn small teal no-grow" onclick="startReadTimer('${t.id}')">⏱ 1分音読スタート</button>
+             <button class="btn small no-grow" onclick="countRead('${t.id}')">✅ 音読した！</button>
+             <span id="timer-${t.id}" style="font-weight:700; color:var(--teal)"></span>
+           </div>
+           <div style="margin-top:10px" class="row">
+             <button class="btn small ghost no-grow" onclick="editTopicAnswer('${t.id}')">英文を編集</button>
+             <button class="btn small secondary no-grow" onclick="copyTopicPrompt('${t.id}')">📋 プロンプトを再コピー</button>
+             <button class="btn small danger no-grow" onclick="deleteTopic('${t.id}')">削除</button>
+           </div>`
+        : `<textarea id="ta-${t.id}" rows="6" placeholder="Claudeが作った英文（＋日本語訳や型表現もまとめてOK）をここに貼り付けて保存">${esc(t.answer)}</textarea>
+           <div style="margin-top:10px" class="row">
+             <button class="btn small no-grow" onclick="saveTopicAnswer('${t.id}')">💾 英文を保存</button>
+             <button class="btn small secondary no-grow" onclick="copyTopicPrompt('${t.id}')">📋 プロンプトを再コピー</button>
+             <button class="btn small danger no-grow" onclick="deleteTopic('${t.id}')">削除</button>
+           </div>`}
+    </div>
+  </details>`).join('');
+}
+
+/* ==================== 復習（間隔反復） ==================== */
+let reviewQueue = [];
+let reviewIndex = 0;
+let reviewShown = false;
+let reviewCorrect = 0;
+
+function dueExpressions() {
+  const t = today();
+  return db.expressions.filter(x => (x.nextReview || t) <= t);
+}
+
+function updateDueBadge() {
+  const n = dueExpressions().length;
+  const b = document.getElementById('due-badge');
+  b.style.display = n ? 'inline-block' : 'none';
+  b.textContent = n;
+}
+
+function startReview() {
+  const scope = document.getElementById('review-scope').value;
+  let pool = scope === 'due' ? dueExpressions() : db.expressions.slice();
+  if (!pool.length) {
+    toast(scope === 'due' ? '今日復習すべき表現はありません 🎉' : 'まず表現ストックに追加しましょう');
+    return;
+  }
+  pool.sort(() => Math.random() - 0.5);
+  reviewQueue = pool;
+  reviewIndex = 0;
+  reviewCorrect = 0;
+  document.getElementById('review-area').style.display = 'block';
+  document.getElementById('review-done').style.display = 'none';
+  showCard();
+}
+
+function showCard() {
+  reviewShown = false;
+  const card = reviewQueue[reviewIndex];
+  const dir = document.getElementById('review-direction').value;
+  const front = dir === 'ja-en' ? (card.ja || '（和訳未登録）→ 英語で言ってみよう') : card.en;
+  const frontLabel = dir === 'ja-en' ? '日本語 → 英語で言えますか？' : '英語 → 意味が分かりますか？';
+  document.getElementById('review-progress').style.width = (reviewIndex / reviewQueue.length * 100) + '%';
+  document.getElementById('flashcard').innerHTML = `
+    <div class="prompt-label">${reviewIndex + 1} / ${reviewQueue.length} ・ ${frontLabel}</div>
+    <div class="front-text">${esc(front)}</div>`;
+  document.getElementById('review-controls').innerHTML =
+    `<button class="btn" onclick="revealCard()">答えを見る</button>`;
+}
+
+function revealCard() {
+  if (reviewShown) return;
+  reviewShown = true;
+  const card = reviewQueue[reviewIndex];
+  const dir = document.getElementById('review-direction').value;
+  const front = dir === 'ja-en' ? (card.ja || '') : card.en;
+  const back = dir === 'ja-en' ? card.en : (card.ja || '（和訳未登録）');
+  document.getElementById('flashcard').innerHTML = `
+    <div class="prompt-label">${reviewIndex + 1} / ${reviewQueue.length}</div>
+    <div class="front-text" style="font-size:1rem;color:var(--sub)">${esc(front)}</div>
+    <div class="answer">${esc(back)}</div>
+    ${card.memo ? `<div class="memo">📝 ${esc(card.memo)}</div>` : ''}`;
+  document.getElementById('review-controls').innerHTML = `
+    <button class="btn danger" onclick="gradeCard(false)">😅 まだ（明日また）</button>
+    <button class="btn teal" onclick="gradeCard(true)">✅ 覚えた</button>`;
+}
+
+function gradeCard(known) {
+  const card = reviewQueue[reviewIndex];
+  const real = db.expressions.find(x => x.id === card.id);
+  if (real) {
+    if (known) {
+      real.stage = Math.min((real.stage || 0) + 1, INTERVALS.length - 1);
+      reviewCorrect++;
+    } else {
+      real.stage = 0;
+    }
+    const d = new Date();
+    d.setDate(d.getDate() + INTERVALS[real.stage]);
+    real.nextReview = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  }
+  g().totals.review++;
+  bump('review');
+  addXP(2);
+  save();
+  reviewIndex++;
+  if (reviewIndex >= reviewQueue.length) {
+    document.getElementById('review-area').style.display = 'none';
+    document.getElementById('review-done').style.display = 'block';
+    document.getElementById('review-result').textContent =
+      `${reviewQueue.length}枚中 ${reviewCorrect}枚「覚えた」でした。`;
+    updateDueBadge();
+  } else {
+    showCard();
+  }
+}
+
+/* ==================== 今日のまとめ ==================== */
+function saveSummary() {
+  const date = document.getElementById('summary-date').value || today();
+  const text = document.getElementById('summary-text').value.trim();
+  if (!text) { toast('まとめを入力してください'); return; }
+  db.summaries[date] = text;
+  bump('summary');
+  addXP(5);
+  save();
+  renderSummaries();
+  toast('保存しました ✔ ' + date);
+}
+
+function loadSummaryFor(date) {
+  document.getElementById('summary-date').value = date;
+  document.getElementById('summary-text').value = db.summaries[date] || '';
+  window.scrollTo(0, 0);
+}
+
+function deleteSummary(date) {
+  if (!confirm(date + ' のまとめを削除しますか？')) return;
+  delete db.summaries[date];
+  save();
+  renderSummaries();
+}
+
+function renderSummaries() {
+  const list = document.getElementById('summary-list');
+  const dates = Object.keys(db.summaries).sort().reverse();
+  if (!dates.length) {
+    list.innerHTML = '<div class="empty">まだ記録がありません。今日から始めましょう。</div>';
+    return;
+  }
+  list.innerHTML = dates.map(d => {
+    const added = db.expressions.filter(x => x.created === d).length;
+    return `<div class="summary-day">
+      <div class="date">📅 ${d}</div>
+      <div class="text">${esc(db.summaries[d])}</div>
+      ${added ? `<div class="added">この日に追加した表現: ${added}件</div>` : ''}
+      <div style="margin-top:8px">
+        <button class="btn small ghost" onclick="loadSummaryFor('${d}')">編集</button>
+        <button class="btn small danger" onclick="deleteSummary('${d}')">削除</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ==================== 統計 ==================== */
+function updateStats() {
+  const li = levelFromXp(g().xp);
+  document.getElementById('stat-level').textContent = 'Lv.' + li.lvl + ' ' + titleFor(li.lvl);
+  document.getElementById('stat-expressions').textContent = '表現 ' + db.expressions.length;
+  document.getElementById('stat-streak').textContent = '連続 ' + currentStreak() + '日';
+  updateDueBadge();
+}
+
+/* ==================== バックアップ ==================== */
+function exportData() {
+  const blob = new Blob([JSON.stringify(db, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'るいの英検学習ノート_バックアップ_' + today() + '.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('バックアップを書き出しました ⬇');
+}
+
+function importData(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (!data.expressions) throw new Error('形式が違います');
+      if (!confirm('現在のデータをファイルの内容で置き換えます。よろしいですか？')) return;
+      db = Object.assign({ expressions: [], patternsCustom: [], mySentences: {}, questions: [], summaries: {}, essays: [], analyses: [], topics: [] }, data);
+      save();
+      renderAll();
+      toast('読み込みました ✔');
+    } catch (err) {
+      toast('読み込みに失敗しました: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+/* ==================== 初期化 ==================== */
+function renderAll() {
+  renderStock();
+  renderEssays();
+  renderAnalyses();
+  renderTopics();
+  renderPatterns();
+  renderGrammar();
+  renderQA();
+  renderSummaries();
+  renderGame();
+  updateStats();
+}
+load();
+document.getElementById('summary-date').value = today();
+renderAll();
+</script>
+</body>
+</html>
